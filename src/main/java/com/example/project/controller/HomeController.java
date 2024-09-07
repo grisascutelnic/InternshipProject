@@ -21,5 +21,4 @@ public class HomeController {
         model.addAttribute("announcements", announcements);
         return "index";
     }
-
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AnnouncementService {
     List<Announcement> getAllAnnouncements();
+
+    void saveAnnouncement(Announcement announcement);
 }

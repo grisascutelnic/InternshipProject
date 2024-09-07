@@ -17,4 +17,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public List<Announcement> getAllAnnouncements() {
         return announcementRepository.findAll();
     }
+
+    @Override
+    public void saveAnnouncement(Announcement announcement) {
+        announcementRepository.save(announcement);
+    }
 }

@@ -22,8 +22,8 @@ public class Announcement {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "prix")
-    private double prix;
+    @Column(name = "price")
+    private double price;
 
     @Column(name = "number")
     private String number;
