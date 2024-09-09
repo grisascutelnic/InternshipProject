@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Base64;
+
+import static java.util.Base64.getDecoder;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +35,24 @@ public class Announcement {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "date")
+    private String date;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+
+    public String getBase64Image() {
+        if (this.image != null) {
+            return Base64.getEncoder().encodeToString(this.image);
+        }
+        return null;
+    }
+
+    public void setBase64Image(String base64Image) {
+        if (base64Image != null) {
+            this.image = getDecoder().decode(base64Image);
+        }
+        this.image = null;
+    }
 }
