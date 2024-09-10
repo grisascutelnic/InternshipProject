@@ -1,0 +1,56 @@
+package com.example.project.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Table(name = "profiles")
+public class Profile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(unique = true, name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "services")
+    private String services;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "locations")
+    private String locations;
+
+    @Column(name = "rating")
+    private int rating;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    private List<Announcement> announcements = new ArrayList<>();
+
+}

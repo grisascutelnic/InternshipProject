@@ -42,6 +42,10 @@ public class Announcement {
     @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
 
+    @ManyToOne
+    @JoinColumn(name = "profile_id")  // Creează o coloană foreign key în tabela "announcements"
+    private Profile profile;
+
     public String getBase64Image() {
         if (this.image != null) {
             return Base64.getEncoder().encodeToString(this.image);
