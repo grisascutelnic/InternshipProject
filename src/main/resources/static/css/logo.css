@@ -1,0 +1,24 @@
+.logo {
+	font-family: var(--second-family);
+	font-size: 18px;
+	line-height: 1.17;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	text-decoration: none;
+
+	color: var(--accent-text-color);
+
+	display: block;
+}
+
+.footer__logo {
+	margin-bottom: 16px;
+}
+
+.header__logo--dark {
+	color: var(--primary-title-color);
+}
+
+.footer__logo--light {
+	color: var(--primary-footer-color);
+}

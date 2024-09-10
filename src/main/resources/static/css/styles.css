@@ -1,0 +1,38 @@
+:root {
+	--primary-text-color: #434455;
+	--primary-title-color: #2e2f42;
+	--accent-text-color: #4d5ae5;
+	--accent-text-color-active: #404bbf;
+	--primary-footer-color: #f4f4fd;
+	--white-color: #ffffff;
+	--grey-color: rgba(46, 47, 66, 0.7);
+	--light-slate: #8e8f99;
+	--succes-green: #31d0aa;
+	--cornflower: #e7e9fc;
+	--navy-blue-modal: rgba(46, 47, 66, 0.4);
+	--dairy: #fcfcfc;
+	--cross: rgba(0, 0, 0, 0.1);
+}
+
+:root {
+	--font-family: "Roboto", sans-serif;
+	--second-family: "Raleway", sans-serif;
+}
+
+:root {
+	--anim-time: 0.25s;
+}
+
+body {
+	font-family: var(--font-family), "Open Sans", Arial, sans-serif;
+	letter-spacing: 0.02em;
+
+	color: var(--primary-text-color);
+	background-color: var(--white-color);
+}
+
+.container {
+	margin: 0 auto;
+	padding: 0 15px;
+	width: 1158px;
+}

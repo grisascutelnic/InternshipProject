@@ -1,0 +1,121 @@
+.footer {
+	background-color: var(--primary-title-color);
+
+	padding: 100px 0;
+}
+
+.footer-text {
+	font-size: 16px;
+	line-height: 1.5;
+
+	color: var(--primary-footer-color);
+
+	width: 264px;
+}
+
+.footer-title {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1.5;
+
+	color: var(--white-color);
+
+	margin-bottom: 16px;
+}
+
+.footer__nav {
+	display: flex;
+}
+
+.footer__list {
+	display: flex;
+	gap: 16px;
+}
+
+.footer__icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 40px;
+	height: 40px;
+
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: var(--accent-text-color);
+	border-radius: 50%;
+}
+
+.footer__icon:hover,
+.footer__icon:focus {
+	background-color: var(--succes-green);
+	transition: var(--anim-time);
+}
+
+.footer__text {
+	margin-right: 120px;
+}
+
+.footer__social {
+	margin-right: 80px;
+}
+
+.footer__form {
+	display: flex;
+	gap: 24px;
+}
+
+.footer__form input {
+	width: 264px;
+	height: 40px;
+	padding: 8px 16px;
+
+	font-family: var(--font-family), "Open Sans", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 1.17;
+	letter-spacing: 0.04em;
+
+	color: var(--white-color);
+	background-color: var(--primary-title-color);
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+
+	border: 1px solid var(--white-color);
+	border-radius: 4px;
+}
+
+.footer__form input::placeholder {
+	font-size: 12px;
+	line-height: 2.0;
+	letter-spacing: 0.04em;
+
+	color: var(--white-color);
+}
+
+
+.footer__button {
+	font-family: var(--font-family), "Open Sans", Arial, sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 150%;
+	letter-spacing: 0.04em;
+	text-align: left;
+	color: var(--white-color);
+
+	display: inline-block;
+	border-radius: 4px;
+	padding: 8px 24px;
+	width: 165px;
+	height: 40px;
+
+	background: var(--accent-text-color);
+	background-repeat: no-repeat;
+	background-position: right 24px bottom 50%;
+	background-image: url('../img/send.svg');
+}
+
+.footer__button:hover,
+.footer__button:focus {
+	background-color: var(--accent-text-color-active);
+	transition: var(--anim-time);
+	cursor: pointer;
+}
