@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +51,8 @@
 
 <div class="form-container">
     <h2>Announcement Form</h2>
-    <form th:action="@{/announcements/saveAnnouncement}" method="POST" th:object="${announcement}">
+    <!-- Note: enctype="multipart/form-data" is required for file upload -->
+    <form th:action="@{/announcements/saveAnnouncement}" method="POST" th:object="${announcement}" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" th:field="*{title}" placeholder="Enter announcement title" required>
 
@@ -65,8 +65,13 @@
         <label for="description">Description:</label>
         <textarea id="description" th:field="*{description}" rows="4" placeholder="Enter announcement description" required></textarea>
 
-        <label for="image">Image URL:</label>
-        <input type="text" id="image" th:field="*{image}" placeholder="Enter image URL" required>
+<!--        <label for="imageUrl">Image URL:</label>-->
+<!--        <input type="text" id="imageUrl" th:field="*{image}" placeholder="Enter image URL">-->
+
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="imageFile"/>
+        </div>
 
         <input type="submit" value="Submit">
     </form>

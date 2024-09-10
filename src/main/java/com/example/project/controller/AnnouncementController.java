@@ -5,10 +5,8 @@ import com.example.project.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/announcements")
 @Controller
@@ -24,8 +22,9 @@ public class AnnouncementController {
     }
 
     @PostMapping("/saveAnnouncement")
-    public String saveAnnouncement(@ModelAttribute("announcement") Announcement announcement) {
-        announcementService.saveAnnouncement(announcement);
-        return "redirect:/index";
+    public String saveAnnouncement(@ModelAttribute("announcement") Announcement announcement,
+    @RequestParam("imageFile") MultipartFile imageFile) {
+        announcementService.saveAnnouncement(announcement, imageFile);
+        return "redirect:/announcements";
     }
 }
