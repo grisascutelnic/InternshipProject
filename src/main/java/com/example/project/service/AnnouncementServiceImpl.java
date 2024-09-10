@@ -4,7 +4,9 @@ import com.example.project.entity.Announcement;
 import com.example.project.repository.AnnouncementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,7 +21,17 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public void saveAnnouncement(Announcement announcement) {
+    public void saveAnnouncement(Announcement announcement, MultipartFile imageFile) {
+
+        try {
+            if (!imageFile.isEmpty()) {
+                announcement.setImage(imageFile.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to upload image", e); // Add more specific error handling if needed
+        }
+
         announcementRepository.save(announcement);
     }
 }
