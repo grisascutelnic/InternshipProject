@@ -1,3 +1,24 @@
+.search__button {
+	font-family: var(--second-family);
+	font-size: 18px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	text-decoration: none;
+	text-align: right;
+
+	color: var(--primary-title-color);
+
+	display: inline-block;
+	border-radius: 4px;
+	padding: 8px 24px;
+	width: 165px;
+	height: 40px;
+
+	background-repeat: no-repeat;
+	background-position: left 24px bottom 50%;
+	background-image: url('../img/categories.svg');
+}
+
 .project {
 	padding: 120px 0;
 }
@@ -26,18 +47,6 @@
 .project__image {
 	position: relative;
 	transition: var(--anim-time);
-}
-
-.project__image::before {
-	display: inline-block;
-	position: absolute;
-
-	content: '';
-	width: 100%;
-	height: 100%;
-
-	background-color: var(--accent-text-color);
-	opacity: 0;
 }
 
 .project__text {
