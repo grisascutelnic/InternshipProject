@@ -42,10 +42,10 @@
 		</div>
 	</section>
 
-	<section class="project" th:each="announcement : ${announcements}">
+	<section class="project">
 		<div class="container">
 			<ul class="project__list">
-				<li class="project__item">
+				<li class="project__item" th:each="announcement : ${announcements}">
 					<div class="project__image">
 						<img th:src="'data:image/jpeg;base64,' + ${announcement.base64Image}" alt="Interface Concept">
 					</div>
