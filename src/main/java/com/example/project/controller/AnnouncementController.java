@@ -28,6 +28,14 @@ public class AnnouncementController {
         return "redirect:/index";
     }
 
+    @PostMapping("/updateAnnouncement")
+    public String updateTour(@ModelAttribute Announcement announcement,
+                             @RequestParam("imageFile") MultipartFile imageFile) {
+
+        announcementService.updateAnnouncement(announcement, imageFile);
+        return "redirect:/index";
+    }
+
     @DeleteMapping("/deleteAnnouncement/{id}")
     public String deleteAnnouncement(@RequestParam("id") Long id) {
         announcementService.deleteAnnouncement(id);
