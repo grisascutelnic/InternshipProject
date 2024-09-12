@@ -34,4 +34,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
         announcementRepository.save(announcement);
     }
+
+    @Override
+    public void deleteAnnouncement(Long id) {
+        announcementRepository.deleteById(id);
+    }
 }

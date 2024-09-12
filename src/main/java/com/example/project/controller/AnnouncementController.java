@@ -25,6 +25,12 @@ public class AnnouncementController {
     public String saveAnnouncement(@ModelAttribute("announcement") Announcement announcement,
     @RequestParam("imageFile") MultipartFile imageFile) {
         announcementService.saveAnnouncement(announcement, imageFile);
-        return "redirect:/announcements";
+        return "redirect:/index";
+    }
+
+    @DeleteMapping("/deleteAnnouncement/{id}")
+    public String deleteAnnouncement(@RequestParam("id") Long id) {
+        announcementService.deleteAnnouncement(id);
+        return "redirect:/index";
     }
 }

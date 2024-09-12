@@ -9,4 +9,6 @@ public interface AnnouncementService {
     List<Announcement> getAllAnnouncements();
 
     void saveAnnouncement(Announcement announcement, MultipartFile imageFile);
+
+    void deleteAnnouncement(Long id);
 }

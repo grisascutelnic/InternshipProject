@@ -32,11 +32,10 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/lib/**", "/contactform/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/lib/**").permitAll()
                                 .requestMatchers("/index", "/error").permitAll()
-                                .requestMatchers("/register/**", "/login/**", "/about/**", "/contact/**","/blog/**",
-                                        "/gallery/**", "/services/**", "/news/**", "/test").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/register/**", "/login/**", "/announcements/**").permitAll()
+//                                .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
