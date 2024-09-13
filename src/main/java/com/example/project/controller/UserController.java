@@ -43,7 +43,7 @@ public class UserController {
             return "redirect:/register?error";
         }
         userService.saveUser(userDto);
-        return "redirect:/register?success";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")

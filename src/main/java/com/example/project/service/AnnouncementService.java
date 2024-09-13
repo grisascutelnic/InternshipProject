@@ -11,4 +11,6 @@ public interface AnnouncementService {
     void saveAnnouncement(Announcement announcement, MultipartFile imageFile);
 
     void deleteAnnouncement(Long id);
+
+    void updateAnnouncement(Announcement announcement, MultipartFile imageFile);
 }
