@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPhone(userDto.getPhone());
 
         Role role = roleRepository.findByName("ROLE_USER");
 
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
+        userDto.setPhone(user.getPhone());
         userDto.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         return userDto;
     }
