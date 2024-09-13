@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -36,11 +38,11 @@
 	<section class="login">
 		<div class="container login__modal">
 			<p class="modal__title">Connectez-vous à votre compte OMNIPRO</p>
-			<form class="login__form">
+			<form class="login__form" method="post" role="form" th:action="@{/register/save}" th:object="${user}">
 				<div class="modal__form-field">
 					<label for="nom">Nom</label>
 					<div class="modal__form-input">
-						<input type="text" class="person" name="name" id="nom">
+						<input type="text" class="person" name="name" id="nom" th:field="*{firstName}">
 						<span class="modal__icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 																					 xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -53,7 +55,7 @@
 				<div class="modal__form-field">
 					<label for="prenom">Prenom</label>
 					<div class="modal__form-input">
-						<input type="text" class="person" name="name" id="prenom">
+						<input type="text" class="person" name="name" id="prenom" th:field="*{lastName}">
 						<span class="modal__icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
 																					 xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -66,7 +68,7 @@
 				<div class="modal__form-field">
 					<label for="email">Email</label>
 					<div class="modal__form-input">
-						<input type="email" class="email" name="email" id="email">
+						<input type="email" class="email" name="email" id="email" th:field="*{email}">
 						<span class="modal__icon email"><svg width="16" height="12" viewBox="0 0 16 12" fill="none"
 																								 xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -79,7 +81,7 @@
 				<div class="modal__form-field">
 					<label for="tel">Téléphone</label>
 					<div class="modal__form-input">
-						<input type="tel" class="phone" name="tel" id="tel">
+						<input type="tel" class="phone" name="tel" id="tel" th:field="*{phone}">
 						<span class="modal__icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"
 																					 xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -102,22 +104,22 @@
 					</div>
 				</div>
 				<div class="modal__form-field">
-					<label for="name">Mot de passe</label>
-					<div class="modal__form-input">
-						<input type="text" class="person" name="name" id="name">
-						<span class="modal__icon"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-																					 xmlns="http://www.w3.org/2000/svg">
-                  <path
-													d="M11.625 5.6H11.25V4.8C11.25 2.1528 9.23175 0 6.75 0C4.26825 0 2.25 2.1528 2.25 4.8V5.6H1.875C0.84075 5.6 0 6.4968 0 7.6V14C0 15.1032 0.84075 16 1.875 16H11.625C12.6593 16 13.5 15.1032 13.5 14V7.6C13.5 6.4968 12.6593 5.6 11.625 5.6ZM3.75 4.8C3.75 3.0352 5.0955 1.6 6.75 1.6C8.4045 1.6 9.75 3.0352 9.75 4.8V5.6H3.75V4.8Z"
-													fill="#2E2F42" />
-                </svg>
-              </span>
-					</div>
-				</div>
+<!--					<label for="name">Mot de passe</label>-->
+<!--					<div class="modal__form-input">-->
+<!--						<input type="text" class="person" name="name" id="name" th:field="*{password}">-->
+<!--						<span class="modal__icon"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"-->
+<!--																					 xmlns="http://www.w3.org/2000/svg">-->
+<!--                  <path-->
+<!--													d="M11.625 5.6H11.25V4.8C11.25 2.1528 9.23175 0 6.75 0C4.26825 0 2.25 2.1528 2.25 4.8V5.6H1.875C0.84075 5.6 0 6.4968 0 7.6V14C0 15.1032 0.84075 16 1.875 16H11.625C12.6593 16 13.5 15.1032 13.5 14V7.6C13.5 6.4968 12.6593 5.6 11.625 5.6ZM3.75 4.8C3.75 3.0352 5.0955 1.6 6.75 1.6C8.4045 1.6 9.75 3.0352 9.75 4.8V5.6H3.75V4.8Z"-->
+<!--													fill="#2E2F42" />-->
+<!--                </svg>-->
+<!--              </span>-->
+<!--					</div>-->
+<!--				</div>-->
 				<div class="modal__form-field">
-					<label for="password">Confirmation du mot de passe</label>
+					<label for="password">Mot de passe</label>
 					<div class="modal__form-input">
-						<input type="password" class="person" name="password" id="password">
+						<input type="password" class="person" name="password" id="password" th:field="*{password}">
 						<span class="modal__icon"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"
 																					 xmlns="http://www.w3.org/2000/svg">
                   <path
