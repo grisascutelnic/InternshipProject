@@ -56,6 +56,10 @@
 </head>
 <body>
 
+<!--/ Nav Start /-->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!--/ Nav End /-->
+
 <div class="form-container">
 
 	<h2>Announcement Form</h2>
@@ -81,6 +85,10 @@
 		<input type="submit" value="Submit">
 	</form>
 </div>
+
+<!--/ Footer Start /-->
+<div th:replace="~{/fragments/footer :: footer}"></div>
+<!--/ Footer End /-->
 
 </body>
 </html>
