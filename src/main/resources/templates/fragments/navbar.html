@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Classimax | Classified Marketplace Template</title>
@@ -112,11 +113,19 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto mt-10">
-                            <li class="nav-item">
-                                <a class="nav-link login-button" href="login.html">Login</a>
+                            <!-- Afișează butonul Login dacă utilizatorul NU este autentificat -->
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link login-button" th:href="@{/login}">Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> Add Listing</a>
+
+                            <!-- Afișează butonul Logout dacă utilizatorul este autentificat -->
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <form th:action="@{/logout}" method="post">
+                                    <a class="nav-link login-button" th:href="@{/logout}">Logout</a>
+                                </form>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <a class="nav-link text-white add-button" href="ad-listing"><i class="fa fa-plus-circle"></i> Add Listing</a>
                             </li>
                         </ul>
                     </div>
