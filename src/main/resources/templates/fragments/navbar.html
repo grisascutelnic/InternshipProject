@@ -49,22 +49,22 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto main-nav ">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link" th:href="@{/index}">Page d'Accueil</a>
                             </li>
                             <li class="nav-item dropdown dropdown-slide @@dashboard">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Dashboard<span><i class="fa fa-angle-down"></i></span>
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Tableau de bord<span><i class="fa fa-angle-down"></i></span>
                                 </a>
 
                                 <!-- Dropdown list -->
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Dashboard</a></li>
-                                    <li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Dashboard My Ads</a></li>
-                                    <li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a></li>
-                                    <li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Dashboard Archived Ads</a></li>
-                                    <li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Dashboard Pending Ads</a></li>
+                                    <li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Tableau de bord</a></li>
+                                    <li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Tableau de bord Mes annonces</a></li>
+                                    <li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Tableau de bord Annonces favorites</a></li>
+                                    <li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Tableau de bord Annonces archivées</a></li>
+                                    <li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Tableau de bord Annonces en attente</a></li>
 
                                     <li class="dropdown dropdown-submenu dropright">
-                                        <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
+                                        <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sous-menu</a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdown0501">
                                             <li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
@@ -114,17 +114,17 @@
                         <ul class="navbar-nav ml-auto mt-10">
                             <!-- Afișează butonul Login dacă utilizatorul NU este autentificat -->
                             <li class="nav-item" sec:authorize="!isAuthenticated()">
-                                <a class="nav-link login-button" th:href="@{/login}">Login</a>
+                                <a class="nav-link login-button" th:href="@{/login}">Inscription</a>
                             </li>
 
                             <!-- Afișează butonul Logout dacă utilizatorul este autentificat -->
                             <li class="nav-item" sec:authorize="isAuthenticated()">
                                 <form th:action="@{/logout}" method="post">
-                                    <a class="nav-link login-button" th:href="@{/logout}">Logout</a>
+                                    <a class="nav-link login-button" th:href="@{/logout}">Déconnexion</a>
                                 </form>
                             </li>
                             <li class="nav-item" sec:authorize="isAuthenticated()">
-                                <a class="nav-link text-white add-button" href="ad-listing"><i class="fa fa-plus-circle"></i> Add Listing</a>
+                                <a class="nav-link text-white add-button" href="ad-listing"><i class="fa fa-plus-circle"></i> Nouvelle annonce</a>
                             </li>
                         </ul>
                     </div>
