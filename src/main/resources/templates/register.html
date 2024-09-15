@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
   <!-- ** Basic Page Needs ** -->
   <meta charset="utf-8">
-  <title>Classimax | Classified Marketplace Template</title>
+  <title>OmniPro | Register</title>
 
   <!-- ** Mobile Specific Metas ** -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +18,7 @@
   <!-- favicon -->
   <link href="images/favicon.png" rel="shortcut icon">
 
-  <!-- 
+  <!--
   Essential stylesheets
   =====================================-->
   <link href="plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -33,41 +27,77 @@
   <link href="plugins/slick/slick.css" rel="stylesheet">
   <link href="plugins/slick/slick-theme.css" rel="stylesheet">
   <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-  
+
   <link href="css/style.css" rel="stylesheet">
 
 </head>
 
 <body class="body-wrapper">
 
-
 <!--/ Nav Start /-->
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!--/ Nav End /-->
 
-<section class="login py-5 border-top-1">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-5 col-md-8 align-item-center">
-        <div class="border border">
-          <h3 class="bg-gray p-4">Register Now</h3>
-          <form action="#">
-            <fieldset class="p-4">
-              <input class="form-control mb-3" type="email" placeholder="Email*" required>
-              <input class="form-control mb-3" type="password" placeholder="Password*" required>
-              <input class="form-control mb-3" type="password" placeholder="Confirm Password*" required>
-              <div class="loggedin-forgot d-inline-flex my-3">
-                <input type="checkbox" id="registering" class="mt-1">
-                <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>
-              </div>
-              <button type="submit" class="btn btn-primary font-weight-bold mt-3">Register Now</button>
-            </fieldset>
-          </form>
+<!-- Verifică dacă utilizatorul este logat și redirecționează -->
+<div sec:authorize="isAuthenticated()">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    window.location = /*[[${#httpServletRequest.contextPath}/profile]]*/ '/profile';
+    /*]]>*/
+  </script>
+</div>
+
+<!-- Formularul de înregistrare pentru utilizatorii neautentificați -->
+<div sec:authorize="!isAuthenticated()">
+  <section class="login py-5 border-top-1">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8 align-item-center">
+          <div class="border border">
+            <h3 class="bg-gray p-4">Register Now</h3>
+            <form th:action="@{/register/save}" th:object="${user}" method="post">
+              <fieldset class="p-4">
+                <input type="text" class="form-control mb-3" id="firstname" name="Nom" th:field="*{firstName}"
+                       placeholder="Enter your first name" required>
+                <p th:if="${#fields.hasErrors('firstName')}"
+                   th:errorclass="text-danger"
+                   th:errors="*{firstName}">
+                </p>
+                <input type="text" class="form-control mb-3" id="lastname" name="Prenom" th:field="*{lastName}"
+                       placeholder="Enter your last name" required>
+                <p th:if="${#fields.hasErrors('lastName')}"
+                   th:errorclass="text-danger"
+                   th:errors="*{lastName}">
+                </p>
+                <input type="email" class="form-control mb-3" id="email" name="email" th:field="*{email}"
+                       placeholder="Enter your email" required>
+                <p th:if="${#fields.hasErrors('email')}"
+                   th:errorclass="text-danger"
+                   th:errors="*{email}">
+                </p>
+                <input type="password" class="form-control mb-3" id="password" name="password" th:field="*{password}"
+                       placeholder="Enter your password" required>
+                <p th:if="${#fields.hasErrors('password')}"
+                   th:errorclass="text-danger"
+                   th:errors="*{password}">
+                </p>
+                <!-- În dezvoltare :) -->
+                <input class="form-control mb-3" type="password" placeholder="Confirm Password*" required>
+                <!-- În dezvoltare :) -->
+                <div class="loggedin-forgot d-inline-flex my-3">
+                  <input type="checkbox" id="registering" class="mt-1">
+                  <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary font-weight-bold mt-3">Register Now</button>
+              </fieldset>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
+
 <!--============================
 =            Footer            =
 =============================-->
@@ -75,7 +105,7 @@
 <div th:replace="~{/fragments/footer :: footer}"></div>
 <!--/ Footer End /-->
 
-<!-- 
+<!--
 Essential Scripts
 =====================================-->
 <script src="plugins/jquery/jquery.min.js"></script>
