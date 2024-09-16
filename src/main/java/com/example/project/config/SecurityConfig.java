@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -21,6 +22,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
@@ -32,15 +36,16 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/lib/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**", "/plugins/**").permitAll()
                                 .requestMatchers("/index", "/error").permitAll()
-                                .requestMatchers("/register/**", "/login/**", "/announcements/**").permitAll()
+                                .requestMatchers("/register/**").not().authenticated()
+                                .requestMatchers("/login/**", "/announcements/**", "/profile/**").permitAll()
 //                                .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/login")
+                                .successHandler(customAuthenticationSuccessHandler)
                                 .permitAll()
                 ).logout(
                         logout -> logout

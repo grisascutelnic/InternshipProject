@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+
+    <!-- ** Mobile Specific Metas ** -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Agency HTML Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
+
+    <!-- theme meta -->
+    <meta name="theme-name" content="classimax" />
+
+    <!-- favicon -->
+    <link href="images/favicon.png" rel="shortcut icon">
+
+    <!--
+    Essential stylesheets
+    =====================================-->
+    <link href="plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
+    <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="plugins/slick/slick.css" rel="stylesheet">
+    <link href="plugins/slick/slick-theme.css" rel="stylesheet">
+    <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body class="body-wrapper">
+
+
+<header th:fragment="navbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light navigation">
+                    <a class="navbar-brand" href="index">
+                        <img src="images/logo.png" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto main-nav ">
+                            <li class="nav-item active">
+                                <a class="nav-link" th:href="@{/index}">Page d'Accueil</a>
+                            </li>
+                            <li class="nav-item dropdown dropdown-slide @@dashboard">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Tableau de bord<span><i class="fa fa-angle-down"></i></span>
+                                </a>
+
+                                <!-- Dropdown list -->
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item @@dashboardPage" th:href="@{/dashboard}">Tableau de bord</a></li>
+                                    <li><a class="dropdown-item @@dashboardMyAds" th:href="@{/dashboard-my-ads}">Tableau de bord Mes annonces</a></li>
+                                    <li><a class="dropdown-item @@dashboardFavouriteAds" th:href="@{/dashboard-favourite-ads}">Tableau de bord Annonces favorites</a></li>
+                                    <li><a class="dropdown-item @@dashboardArchivedAds" th:href="@{/dashboard-archived-ads}">Tableau de bord Annonces archivées</a></li>
+                                    <li><a class="dropdown-item @@dashboardPendingAds" th:href="@{/dashboard-pending-ads}">Tableau de bord Annonces en attente</a></li>
+
+                                    <li class="dropdown dropdown-submenu dropright">
+                                        <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sous-menu</a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdown0501">
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown dropdown-slide @@pages">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pages <span><i class="fa fa-angle-down"></i></span>
+                                </a>
+                                <!-- Dropdown list -->
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item @@about" th:href="@{/about-us}">About Us</a></li>
+                                    <li><a class="dropdown-item @@contact" th:href="@{/contact-us}">Contact Us</a></li>
+                                    <li><a class="dropdown-item @@profile" th:href="@{/profile}">User Profile</a></li>
+                                    <li><a class="dropdown-item @@404" th:href="@{/404}">404 Page</a></li>
+                                    <li><a class="dropdown-item @@package" th:href="@{/package}">Package</a></li>
+                                    <li><a class="dropdown-item @@singlePage" th:href="@{/single}">Single Page</a></li>
+                                    <li><a class="dropdown-item @@store" th:href="@{/store}">Store Single</a></li>
+                                    <li><a class="dropdown-item @@blog" th:href="@{/blog}">Blog</a></li>
+                                    <li><a class="dropdown-item @@singleBlog" th:href="@{/single-blog}">Blog Details</a></li>
+                                    <li><a class="dropdown-item @@terms" th:href="@{/terms-condition}">Terms &amp; Conditions</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown dropdown-slide @@listing">
+                                <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Listing <span><i class="fa fa-angle-down"></i></span>
+                                </a>
+                                <!-- Dropdown list -->
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item @@category" th:href="@{/category}">Ad-Gird View</a></li>
+                                    <li><a class="dropdown-item @@listView" th:href="@{/ad-list-view}">Ad-List View</a></li>
+
+                                    <li class="dropdown dropdown-submenu dropleft">
+                                        <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0201" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdown0201">
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto mt-10">
+                            <!-- Afișează butonul Login dacă utilizatorul NU este autentificat -->
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link login-button" th:href="@{/login}">Inscription</a>
+                            </li>
+
+                            <!-- Afișează butonul Logout dacă utilizatorul este autentificat -->
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <form th:action="@{/logout}" method="post">
+                                    <a class="nav-link login-button" th:href="@{/logout}">Déconnexion</a>
+                                </form>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <a class="nav-link text-white add-button" href="ad-listing"><i class="fa fa-plus-circle"></i> Nouvelle annonce</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/popper.min.js"></script>
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<script src="plugins/bootstrap/bootstrap-slider.js"></script>
+<script src="plugins/tether/js/tether.min.js"></script>
+<script src="plugins/raty/jquery.raty-fa.js"></script>
+<script src="plugins/slick/slick.min.js"></script>
+<script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<!-- google map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+<script src="plugins/google-map/map.js" defer></script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
