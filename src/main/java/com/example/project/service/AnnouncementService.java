@@ -13,4 +13,6 @@ public interface AnnouncementService {
     void deleteAnnouncement(Long id);
 
     void updateAnnouncement(Announcement announcement, MultipartFile imageFile);
+
+    Announcement getAnnouncementById(Long id);
 }

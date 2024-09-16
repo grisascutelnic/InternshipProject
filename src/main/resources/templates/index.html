@@ -30,7 +30,7 @@
   <link href="plugins/slick/slick-theme.css" rel="stylesheet">
   <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
   
-  <link href="css/style.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -128,7 +128,7 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-6 col-sm-12 mb-4" th:each="announcement, announcementStat : ${announcements}" th:if="${announcementStat.index < 8}">
 				<div class="card" th:classappend="${announcementStat.index >= 4} ? 'mt-4' : ''">
-					<a th:href="@{'/announcement/' + ${announcement.id}}">
+					<a th:href="@{'/announcements/viewAnnouncement/' + ${announcement.id}}">
 						<div class="card-img-top img-fluid">
 							<img class="card-img-top img-fluid" th:src="'data:image/jpeg;base64,' + ${announcement.base64Image}" alt="Card image cap">
 						</div>
@@ -137,10 +137,10 @@
 						<h4 th:text="${announcement.title}" class="section-name"></h4>
 						<ul class="list-inline product-meta">
 							<li class="list-inline-item">
-								<a href="single.html"><i class="fa fa-folder-open-o"></i> Electronics</a>
+								<a th:href="@{'/announcements/viewAnnouncement/' + ${announcement.id}}"><i class="fa fa-folder-open-o"></i> Electronics</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="category.html"><i class="fa fa-calendar"></i> 26th December</a>
+								<i type="date" class="fa fa-calendar" th:date="${announcement.date}"></i>
 							</li>
 						</ul>
 					</div>

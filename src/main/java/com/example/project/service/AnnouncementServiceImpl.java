@@ -69,4 +69,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             throw new InternalServerErrorException("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public Announcement getAnnouncementById(Long id) {
+        return announcementRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Announcement not found with id: " + id));
+    }
 }
