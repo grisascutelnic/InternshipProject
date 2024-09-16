@@ -17,8 +17,13 @@ public class HomeController {
 
     @GetMapping("/index")
     public String showIndex(Model model) {
-        List<Announcement>announcements = announcementService.getAllAnnouncements();
-        model.addAttribute("announcements", announcements);
+        try {
+            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            model.addAttribute("announcements", announcements);
+//            throw new RuntimeException("Simulated exception");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Désolé, la récupération à partir de la base de données a échoué. Veuillez recharger la page et réessayer.");
+        }
         return "index";
     }
 }
