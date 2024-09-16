@@ -1,8 +1,10 @@
 package com.example.project.service;
 
 import com.example.project.dto.UserDto;
+import com.example.project.entity.Profile;
 import com.example.project.entity.Role;
 import com.example.project.entity.User;
+import com.example.project.repository.ProfileRepository;
 import com.example.project.repository.RoleRepository;
 import com.example.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +24,40 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public UserServiceImpl (UserRepository userRepository,
                             RoleRepository roleRepository,
-                            PasswordEncoder passwordEncoder) {
+                            PasswordEncoder passwordEncoder,
+                            ProfileRepository profileRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.profileRepository = profileRepository;
     }
 
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
+        Profile profile = new Profile();
+
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhone(userDto.getPhone());
 
+        profile.setFirstName(userDto.getFirstName());
+        profile.setLastName(userDto.getLastName());
+        profile.setEmail(userDto.getEmail());
+        profile.setPhone(userDto.getPhone());
+
         Role role = roleRepository.findByName("ROLE_USER");
 
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+        profileRepository.save(profile);
     }
 
     @Override

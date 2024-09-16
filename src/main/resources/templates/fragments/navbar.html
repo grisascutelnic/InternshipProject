@@ -57,18 +57,18 @@
 
                                 <!-- Dropdown list -->
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item @@dashboardPage" href="dashboard.html">Tableau de bord</a></li>
-                                    <li><a class="dropdown-item @@dashboardMyAds" href="dashboard-my-ads.html">Tableau de bord Mes annonces</a></li>
-                                    <li><a class="dropdown-item @@dashboardFavouriteAds" href="dashboard-favourite-ads.html">Tableau de bord Annonces favorites</a></li>
-                                    <li><a class="dropdown-item @@dashboardArchivedAds" href="dashboard-archived-ads.html">Tableau de bord Annonces archivées</a></li>
-                                    <li><a class="dropdown-item @@dashboardPendingAds" href="dashboard-pending-ads.html">Tableau de bord Annonces en attente</a></li>
+                                    <li><a class="dropdown-item @@dashboardPage" th:href="@{/dashboard}">Tableau de bord</a></li>
+                                    <li><a class="dropdown-item @@dashboardMyAds" th:href="@{/dashboard-my-ads}">Tableau de bord Mes annonces</a></li>
+                                    <li><a class="dropdown-item @@dashboardFavouriteAds" th:href="@{/dashboard-favourite-ads}">Tableau de bord Annonces favorites</a></li>
+                                    <li><a class="dropdown-item @@dashboardArchivedAds" th:href="@{/dashboard-archived-ads}">Tableau de bord Annonces archivées</a></li>
+                                    <li><a class="dropdown-item @@dashboardPendingAds" th:href="@{/dashboard-pending-ads}">Tableau de bord Annonces en attente</a></li>
 
                                     <li class="dropdown dropdown-submenu dropright">
                                         <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sous-menu</a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdown0501">
-                                            <li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-                                            <li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -79,16 +79,16 @@
                                 </a>
                                 <!-- Dropdown list -->
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item @@about" href="about-us.html">About Us</a></li>
-                                    <li><a class="dropdown-item @@contact" href="contact-us.html">Contact Us</a></li>
-                                    <li><a class="dropdown-item @@profile" href="user-profile.html">User Profile</a></li>
-                                    <li><a class="dropdown-item @@404" href="404.html">404 Page</a></li>
-                                    <li><a class="dropdown-item @@package" href="package.html">Package</a></li>
-                                    <li><a class="dropdown-item @@singlePage" href="single.html">Single Page</a></li>
-                                    <li><a class="dropdown-item @@store" href="store.html">Store Single</a></li>
-                                    <li><a class="dropdown-item @@blog" href="blog.html">Blog</a></li>
-                                    <li><a class="dropdown-item @@singleBlog" href="single-blog.html">Blog Details</a></li>
-                                    <li><a class="dropdown-item @@terms" href="terms-condition.html">Terms &amp; Conditions</a></li>
+                                    <li><a class="dropdown-item @@about" th:href="@{/about-us}">About Us</a></li>
+                                    <li><a class="dropdown-item @@contact" th:href="@{/contact-us}">Contact Us</a></li>
+                                    <li><a class="dropdown-item @@profile" th:href="@{/profile}">User Profile</a></li>
+                                    <li><a class="dropdown-item @@404" th:href="@{/404}">404 Page</a></li>
+                                    <li><a class="dropdown-item @@package" th:href="@{/package}">Package</a></li>
+                                    <li><a class="dropdown-item @@singlePage" th:href="@{/single}">Single Page</a></li>
+                                    <li><a class="dropdown-item @@store" th:href="@{/store}">Store Single</a></li>
+                                    <li><a class="dropdown-item @@blog" th:href="@{/blog}">Blog</a></li>
+                                    <li><a class="dropdown-item @@singleBlog" th:href="@{/single-blog}">Blog Details</a></li>
+                                    <li><a class="dropdown-item @@terms" th:href="@{/terms-condition}">Terms &amp; Conditions</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown dropdown-slide @@listing">
@@ -97,15 +97,15 @@
                                 </a>
                                 <!-- Dropdown list -->
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item @@category" href="category.html">Ad-Gird View</a></li>
-                                    <li><a class="dropdown-item @@listView" href="ad-list-view.html">Ad-List View</a></li>
+                                    <li><a class="dropdown-item @@category" th:href="@{/category}">Ad-Gird View</a></li>
+                                    <li><a class="dropdown-item @@listView" th:href="@{/ad-list-view}">Ad-List View</a></li>
 
                                     <li class="dropdown dropdown-submenu dropleft">
                                         <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0201" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdown0201">
-                                            <li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-                                            <li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
+                                            <li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
                                         </ul>
                                     </li>
                                 </ul>
