@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,11 +48,13 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhone(userDto.getPhone());
+        user.setRegistrationDate(new Date());
 
         profile.setFirstName(userDto.getFirstName());
         profile.setLastName(userDto.getLastName());
         profile.setEmail(userDto.getEmail());
         profile.setPhone(userDto.getPhone());
+        profile.setRegistrationDate(new Date());
 
         Role role = roleRepository.findByName("ROLE_USER");
 
