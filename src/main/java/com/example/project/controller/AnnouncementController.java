@@ -1,8 +1,11 @@
 package com.example.project.controller;
 
 import com.example.project.entity.Announcement;
+import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
+import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,8 @@ public class AnnouncementController {
 
     @Autowired
     private AnnouncementService announcementService;
+    @Autowired
+    private ProfileService profileService;
 
     @GetMapping("/createAnnouncement")
     public String showNewAnnouncement(Model model) {
@@ -23,8 +28,12 @@ public class AnnouncementController {
 
     @PostMapping("/saveAnnouncement")
     public String saveAnnouncement(@ModelAttribute("announcement") Announcement announcement,
-    @RequestParam("imageFile") MultipartFile imageFile) {
-        announcementService.saveAnnouncement(announcement, imageFile);
+    @RequestParam("imageFile") MultipartFile imageFile, Authentication auth) {
+
+        Profile profile = profileService.findByEmail(auth.getName());
+        announcement.setProfile(profile);
+
+        announcementService.saveAnnouncement(announcement, imageFile, auth);
         return "redirect:/index";
     }
 
