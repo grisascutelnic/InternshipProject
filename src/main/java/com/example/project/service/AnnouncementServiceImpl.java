@@ -7,6 +7,7 @@ import com.example.project.repository.AnnouncementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public void saveAnnouncement(Announcement announcement, MultipartFile imageFile) {
+    public void saveAnnouncement(Announcement announcement, MultipartFile imageFile, Authentication auth) {
 
         try {
             if (!imageFile.isEmpty()) {
