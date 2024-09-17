@@ -63,8 +63,8 @@
             </div>
             <!-- User Name -->
             <h5 class="text-center" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h5>
-            <p>Joined February 06, 2017</p>
-            <a th:href="@{/editProfile}" class="btn btn-main-sm">Edit Profile</a>
+            <p th:text="'Joined ' + ${#dates.format(profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
+            <a th:href="@{/profile/editProfile}" class="btn btn-main-sm">Edit Profile</a>
           </div>
           <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu">
