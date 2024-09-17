@@ -15,10 +15,10 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
-    @GetMapping("/newAnnouncement")
+    @GetMapping("/createAnnouncement")
     public String showNewAnnouncement(Model model) {
         model.addAttribute("announcement", new Announcement());
-        return "newAnnouncement";
+        return "createAnnouncement";
     }
 
     @PostMapping("/saveAnnouncement")
