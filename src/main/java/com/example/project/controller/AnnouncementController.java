@@ -61,4 +61,17 @@ public class AnnouncementController {
             return "redirect:/viewAnnouncement?error";
         }
     }
+
+    @GetMapping("/profile/{profileId}")
+    public String viewProfileAnnouncements(@PathVariable("profileId") Long profileId, Model model) {
+        Profile profile = profileService.getProfileById(profileId);
+        if (profile != null) {
+            model.addAttribute("profile", profile);
+            model.addAttribute("announcements", profile.getAnnouncements());
+            return "profile";
+        } else {
+            return "redirect:/error";
+        }
+    }
+
 }
