@@ -5,4 +5,6 @@ import com.example.project.entity.Profile;
 
 public interface ProfileService {
     Profile findByEmail(String email);
+
+    Profile getProfileById(Long id);
 }
