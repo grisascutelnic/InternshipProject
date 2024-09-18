@@ -1,6 +1,7 @@
 package com.example.project.controller;
 
 import com.example.project.entity.Announcement;
+import com.example.project.entity.Feedback;
 import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
 import com.example.project.service.ProfileService;
@@ -53,6 +54,7 @@ public class AnnouncementController {
 
     @GetMapping("/viewAnnouncement/{id}")
     public String viewAnnouncement(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("feedback", new Feedback());
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
