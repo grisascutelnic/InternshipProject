@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -21,6 +22,13 @@ public class ProfileServiceImpl implements ProfileService {
     public Profile findByEmail(String email) {
         return profileRepository.findByEmail(email);
     }
+
+    @Override
+    public Profile findById(Long id) {
+        return profileRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Profile not found with id: " + id));
+    }
+
 
     @Override
     public Profile getProfileById(Long id) {
@@ -35,7 +43,7 @@ public class ProfileServiceImpl implements ProfileService {
             profile.setLastName(editedProfile.getLastName());
 //            profile.setEmail(editedProfile.getEmail());
             profile.setPhone(editedProfile.getPhone());
-            profile.setAddress(editedProfile.getAddress());
+//            profile.setAddress(editedProfile.getAddress());
             profile.setLocation(editedProfile.getLocation());
             profile.setDescription(editedProfile.getDescription());
 
