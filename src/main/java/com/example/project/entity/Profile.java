@@ -52,7 +52,7 @@ public class Profile {
     private String location;
 
     @Column(name = "rating")
-    private int rating;
+    private double rating;
 
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")
