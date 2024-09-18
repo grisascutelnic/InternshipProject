@@ -8,7 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ProfileService {
     Profile findByEmail(String email);
 
+    Profile findById(Long Id);
+
     Profile getProfileById(Long id);
 
     void updateProfile(Profile editedProfile, MultipartFile imageFile, Authentication auth);
+
 }
