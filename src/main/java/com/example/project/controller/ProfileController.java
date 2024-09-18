@@ -19,6 +19,10 @@ public class ProfileController {
     @GetMapping()
     public String showProfile(Model model, Authentication auth) {
         Profile profile = profileService.findByEmail(auth.getName());
+        if (profile == null) {
+            model.addAttribute("error", "Profile not found for email: " + auth.getName());
+            return "error"; // Point to an error page, or return the same profile page with an error message
+        }
         model.addAttribute("profile", profile);
         return "profile";
     }

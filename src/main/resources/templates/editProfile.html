@@ -60,7 +60,7 @@
 							<img src="/images/user/user-thumb.jpg" alt="" class="">
 						</div>
 						<!-- User Name -->
-						<h5 class="text-center" th:object="profile" th:text="|${profile.firstName} ${profile.lastName}|"></h5>
+						<h5 class="text-center" th:object="${profile}" th:text="|${profile.firstName} ${profile.lastName}|"></h5>
 					</div>
 					<!-- Dashboard Links -->
           <div class="widget user-dashboard-menu">
@@ -88,12 +88,12 @@
 								<!-- First Name -->
 								<div class="form-group">
 									<label for="first-name">First Name</label>
-									<input type="text" class="form-control" id="first-name" th:field="*{firstName}" name="firstName">
+									<input type="text" class="form-control" id="first-name" th:field="*{firstName}">
 								</div>
 								<!-- Last Name -->
 								<div class="form-group">
 									<label for="last-name">Last Name</label>
-									<input type="text" class="form-control" id="last-name" th:field="*{lastName}" name="lastName">
+									<input type="text" class="form-control" id="last-name" th:field="*{lastName}">
 								</div>
 
 								<!-- File chooser -->
@@ -105,25 +105,25 @@
 								<!-- Description -->
 								<div class="form-group">
 									<label for="description">Description</label>
-									<textarea class="form-control" id="description" rows="4" th:field="*{description}" name="description"></textarea>
+									<textarea class="form-control" id="description" rows="4" th:field="*{description}"></textarea>
 								</div>
 
 								<!-- Location -->
 								<div class="form-group">
 									<label for="location">Location</label>
-									<input type="text" class="form-control" id="location" th:field="*{location}" name="location">
+									<input type="text" class="form-control" id="location" th:field="*{location}" >
 								</div>
 
 								<!-- Phone -->
 								<div class="form-group">
 									<label for="phone">Phone</label>
-									<input type="text" class="form-control" id="phone" th:field="*{phone}" name="phone">
+									<input type="text" class="form-control" id="phone" th:field="*{phone}" >
 								</div>
 
 								<!-- Address -->
 								<div class="form-group">
 									<label for="address">Address</label>
-									<input type="text" class="form-control" id="address" th:field="*{address}" name="address">
+									<input type="text" class="form-control" id="address" th:field="*{address}">
 								</div>
 
 								<!-- Submit button -->

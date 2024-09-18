@@ -33,7 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
             Profile profile = profileRepository.findByEmail(auth.getName());
             profile.setFirstName(editedProfile.getFirstName());
             profile.setLastName(editedProfile.getLastName());
-            profile.setEmail(editedProfile.getEmail());
+//            profile.setEmail(editedProfile.getEmail());
             profile.setPhone(editedProfile.getPhone());
             profile.setAddress(editedProfile.getAddress());
             profile.setLocation(editedProfile.getLocation());
