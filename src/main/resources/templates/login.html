@@ -38,14 +38,9 @@
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!--/ Nav End /-->
 
-<!-- Dacă utilizatorul este logat, redirecționează-l -->
-<div sec:authorize="isAuthenticated()">
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    window.location = /*[[${#httpServletRequest.contextPath}/profile]]*/ '/profile';
-    /*]]>*/
-  </script>
-</div>
+
+
+
 
 <!-- Formularul de login doar dacă utilizatorul nu este autentificat -->
 <div sec:authorize="!isAuthenticated()">
