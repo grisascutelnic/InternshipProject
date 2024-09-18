@@ -1,6 +1,8 @@
 package com.example.project.controller;
 
+import com.example.project.entity.Announcement;
 import com.example.project.entity.Profile;
+import com.example.project.service.AnnouncementService;
 import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+import java.util.List;
+
 @RequestMapping("/profile")
 @Controller
 public class ProfileController {
@@ -16,17 +21,31 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private AnnouncementService announcementService;
+
     @GetMapping("/{id}")
     public String showProfile(Model model,
                               @PathVariable Long id,
-                              Authentication auth) {
+                              Authentication auth,
+                              Principal principal) {
         Profile profile = profileService.findById(id);
         if (profile == null) {
             model.addAttribute("error", "Profile not found for email: " + auth.getName());
             return "error"; // Point to an error page, or return the same profile page with an error message
         }
+
+        List<Announcement> announcements = announcementService.findByProfileId(id);
+
         model.addAttribute("profile", profile);
         model.addAttribute("profileId", id);
+        model.addAttribute("announcements", announcements);
+
+        if (principal != null) {
+            String authenticatedEmail = principal.getName();
+            model.addAttribute("authenticatedEmail", authenticatedEmail);
+        }
+//        model.addAttribute("authenticatedEmail", auth.getName());
         return "profile";
     }
 
