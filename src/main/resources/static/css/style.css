@@ -54,6 +54,13 @@ p {
 	color: #888;
 }
 
+.profile-image {
+	width: 100px; /* Setează dimensiunea dorită a imaginii */
+	height: 100px; /* Asigură că lățimea și înălțimea sunt egale pentru a face cercul perfect */
+	object-fit: cover; /* Asigură că imaginea se adaptează la dimensiunea containerului */
+	border-radius: 50%; /* Creează efectul de cerc */
+}
+
 label {
 	font-size: 14px;
 	letter-spacing: 0;
