@@ -469,7 +469,7 @@ button {
 }
 
 .btn-secondary:hover {
-	background: #5672f9;
+	background-color: #47acf4;
 	color: #fff;
 	border-color: #fff;
 }
@@ -1317,8 +1317,13 @@ ul.pagination .active a {
 	margin-bottom: 25px;
 }
 
+.category-block:hover {
+	cursor: pointer;
+	transition: 0.2s;
+	box-shadow: 0px 7px 16px 0px rgba(0, 0, 0, 0.15);
+}
+
 .category-block .header {
-	margin-bottom: 20px;
 	border-bottom: 3px solid #F4F7F9;
 	text-align: center;
 }
@@ -1329,44 +1334,9 @@ ul.pagination .active a {
 	margin-top: 5px;
 }
 
-.category-block .header .icon-bg-1 {
-	background: #ccdb38;
-	box-shadow: 0 0 0px 4px rgba(204, 219, 56, 0.35);
-}
-
-.category-block .header .icon-bg-2 {
-	background: #a676b8;
-	box-shadow: 0 0 0px 4px rgba(166, 118, 184, 0.35);
-}
-
-.category-block .header .icon-bg-3 {
-	background: #fe7e17;
-	box-shadow: 0 0 0px 4px rgba(254, 126, 23, 0.35);
-}
-
-.category-block .header .icon-bg-4 {
-	background: #EC3A56;
-	box-shadow: 0 0 0px 4px rgba(236, 58, 86, 0.35);
-}
-
-.category-block .header .icon-bg-5 {
-	background: #1DBFFF;
-	box-shadow: 0 0 0px 4px rgba(29, 191, 255, 0.35);
-}
-
-.category-block .header .icon-bg-6 {
-	background: #02d3a4;
-	box-shadow: 0 0 0px 4px rgba(2, 211, 164, 0.35);
-}
-
-.category-block .header .icon-bg-7 {
-	background: #bc02d3;
-	box-shadow: 0 0 0px 4px rgba(188, 2, 211, 0.35);
-}
-
-.category-block .header .icon-bg-8 {
-	background: #025fd3;
-	box-shadow: 0 0 0px 4px rgba(2, 95, 211, 0.35);
+.category-block .header .icon-bg {
+	background: #47acf4;
+	box-shadow: 0 0 0px 4px rgba(71, 172, 244, 0.35);
 }
 
 .category-block .header i {
