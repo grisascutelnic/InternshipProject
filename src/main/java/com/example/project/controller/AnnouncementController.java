@@ -1,6 +1,7 @@
 package com.example.project.controller;
 
 import com.example.project.entity.Announcement;
+import com.example.project.entity.Feedback;
 import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
 import com.example.project.service.ProfileService;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequestMapping("/announcements")
 @Controller
@@ -53,6 +56,7 @@ public class AnnouncementController {
 
     @GetMapping("/viewAnnouncement/{id}")
     public String viewAnnouncement(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("feedback", new Feedback());
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
@@ -60,6 +64,18 @@ public class AnnouncementController {
         } else {
             return "redirect:/viewAnnouncement?error";
         }
+    }
+
+    @GetMapping("/allAnnouncements")
+    public String showAllAnnouncements(Model model) {
+        try {
+            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            model.addAttribute("announcements", announcements);
+//            throw new RuntimeException("Simulated exception");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Désolé, la récupération à partir de la base de données a échoué. Veuillez recharger la page et réessayer.");
+        }
+        return "allAnnouncement";
     }
 
     @GetMapping("/profile/{profileId}")

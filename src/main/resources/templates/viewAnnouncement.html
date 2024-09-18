@@ -164,15 +164,16 @@
 											<div class="starrr"></div>
 										</div>
 										<div class="review-submit">
-											<form action="#" method="POST" class="row">
+											<form th:action="@{/feedbacks/saveFeedback}" th:object="${feedback}" method="post" class="row">
 												<div class="col-lg-6 mb-3">
-													<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+													<label for="name">Name</label>
+													<input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}">
 												</div>
 												<div class="col-lg-6 mb-3">
-													<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+													<input type="email" class="form-control" placeholder="Email" th:field="*{email}">
 												</div>
 												<div class="col-12 mb-3">
-													<textarea name="review" id="review" rows="6" class="form-control" placeholder="Message" required></textarea>
+													<textarea rows="6" class="form-control" placeholder="Message" th:field="*{message}"></textarea>
 												</div>
 												<div class="col-12">
 													<button type="submit" class="btn btn-main">Submit</button>
