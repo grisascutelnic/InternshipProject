@@ -31,18 +31,28 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/editProfile")
-    public String showEditContactForm(Model model, Authentication auth) {
-        Profile profile = profileService.findByEmail(auth.getName());
+    @GetMapping("/editProfile/{id}")
+    public String showEditProfileForm(@PathVariable Long id, Model model, Authentication auth) {
+        Profile profile = profileService.findById(id);
+        if (profile == null || !profile.getEmail().equals(auth.getName())) {
+            // În cazul în care profilul nu există sau utilizatorul nu are permisiunea de a edita acest profil
+            return "redirect:/error";
+        }
         model.addAttribute("profile", profile);
         return "editProfile";
     }
 
-    @PostMapping("/updateProfile")
-    public String updateContact(@ModelAttribute("profile") Profile editedProfile,
+
+    @PostMapping("/updateProfile/{id}")
+    public String updateContact(@PathVariable Long id,
+                                @ModelAttribute("profile") Profile editedProfile,
                                 @RequestParam("imageFile") MultipartFile imageFile,
                                 Authentication auth) {
-        profileService.updateProfile(editedProfile, imageFile, auth);
-        return "redirect:/profile/editProfile";
+        if (editedProfile == null) {
+            // În cazul în care profilul nu există sau utilizatorul nu are permisiunea de a actualiza acest profil
+            return "redirect:/error";
+        }
+        profileService.updateProfile(id, editedProfile, imageFile, auth);
+        return "redirect:/profile/" + id;
     }
 }

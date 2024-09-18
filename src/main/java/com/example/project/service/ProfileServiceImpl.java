@@ -36,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void updateProfile(Profile editedProfile, MultipartFile imageFile, Authentication auth) {
+    public void updateProfile(Long Id, Profile editedProfile, MultipartFile imageFile, Authentication auth) {
         try {
             Profile profile = profileRepository.findByEmail(auth.getName());
             profile.setFirstName(editedProfile.getFirstName());
