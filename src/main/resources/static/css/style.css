@@ -2394,6 +2394,10 @@ article.single-post p {
 	margin-bottom: 40px;
 }
 
+.register-label {
+	margin-bottom: 0;
+}
+
 .popup .block-2 form .form-group label {
 	display: block;
 	color: #666;
