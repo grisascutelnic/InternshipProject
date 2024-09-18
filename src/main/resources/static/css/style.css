@@ -1211,7 +1211,7 @@ ul.pagination .active a {
 }
 
 .dashboard-container .action .list-inline .list-inline-item:not(:last-child) {
-	margin-right: 0px;
+  margin-right: 0;
 }
 
 .dashboard-container .action .edit {
@@ -1555,8 +1555,9 @@ ul.pagination .active a {
 }
 
 .product-details .product-title {
-	font-size: 25px;
-	font-weight: 600;
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 18px;
 }
 
 .product-details .tab-title {
@@ -1576,7 +1577,7 @@ ul.pagination .active a {
 }
 
 .product-details .content {
-	padding-top: 40px;
+  padding-top: 15px;
 }
 
 .product-details .content h3 {
@@ -1590,8 +1591,8 @@ ul.pagination .active a {
 }
 
 .product-details .content .nav {
-	text-align: center;
-	margin-bottom: 5px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .product-details .content .nav .nav-item {
@@ -1708,11 +1709,11 @@ ul.pagination .active a {
 }
 
 .widget {
-	background: #fff;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-	padding: 25px 30px 30px;
-	margin-bottom: 30px;
-	border-radius: 2px;
+  background: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  padding: 25px 30px 20px;
+  margin-bottom: 30px;
+  border-radius: 2px;
 }
 
 .widget .widget-header {

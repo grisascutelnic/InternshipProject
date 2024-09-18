@@ -54,6 +54,10 @@ public class Profile {
     @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Announcement> announcements = new ArrayList<>();
 
