@@ -34,11 +34,11 @@ public class FeedbackController {
         model.addAttribute("feedback", new Feedback());
         return "viewAnnouncement";
     }
-
+//redrictioneze pe pagina de feedback anunt
     @PostMapping("/saveFeedback")
     public String saveFeedback(@ModelAttribute("feedback") Feedback feedback) {
         feedbackService.saveFeedback(feedback);
-        return "redirect:/index";
+        return "redirect:/announcements/viewAnnouncement";
     }
 
     @DeleteMapping("/deleteFeedback/{id}")

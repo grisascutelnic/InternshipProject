@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<nav class="navbar navbar-expand-lg navbar-light navigation">
-					<a class="navbar-brand" th:href="@{index}">
+					<a class="navbar-brand" th:href="@{/index}">
 						<img th:src="@{/images/logo.png}" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -51,31 +51,14 @@
 								<a class="nav-link" th:href="@{/index}">Page d'Accueil</a>
 							</li>
 							<li class="nav-item dropdown dropdown-slide @@dashboard">
-								<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Tableau de bord<span><i
+								<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!">Tableau des Annonces<span><i
 												class="fa fa-angle-down"></i></span>
 								</a>
 
 								<!-- Dropdown list -->
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item @@dashboardPage" th:href="@{/dashboard}">Tableau de bord</a></li>
-									<li><a class="dropdown-item @@dashboardMyAds" th:href="@{/dashboard-my-ads}">Tableau de bord Mes
-										annonces</a></li>
-									<li><a class="dropdown-item @@dashboardFavouriteAds" th:href="@{/dashboard-favourite-ads}">Tableau de
-										bord Annonces favorites</a></li>
-									<li><a class="dropdown-item @@dashboardArchivedAds" th:href="@{/dashboard-archived-ads}">Tableau de
-										bord Annonces archivées</a></li>
-									<li><a class="dropdown-item @@dashboardPendingAds" th:href="@{/dashboard-pending-ads}">Tableau de bord
-										Annonces en attente</a></li>
-
-									<li class="dropdown dropdown-submenu dropright">
-										<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button"
-											 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sous-menu</a>
-
-										<ul class="dropdown-menu" aria-labelledby="dropdown0501">
-											<li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
-											<li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
-										</ul>
-									</li>
+									<li><a class="dropdown-item @@dashboardPage" th:href="@{/announcements/allAnnouncements}">Tableau des Annonces</a></li>
+									<li><a class="dropdown-item @@dashboardMyAds" th:href="@{/profile}">Mes Annonces</a></li>
 								</ul>
 							</li>
 							<li class="nav-item dropdown dropdown-slide @@pages">
@@ -97,27 +80,6 @@
 									<li><a class="dropdown-item @@terms" th:href="@{/terms-condition}">Terms &amp; Conditions</a></li>
 								</ul>
 							</li>
-							<li class="nav-item dropdown dropdown-slide @@listing">
-								<a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown" aria-haspopup="true"
-									 aria-expanded="false">
-									Listing <span><i class="fa fa-angle-down"></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item @@category" th:href="@{/category}">Ad-Gird View</a></li>
-									<li><a class="dropdown-item @@listView" th:href="@{/ad-list-view}">Ad-List View</a></li>
-
-									<li class="dropdown dropdown-submenu dropleft">
-										<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0201" role="button"
-											 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-										<ul class="dropdown-menu" aria-labelledby="dropdown0201">
-											<li><a class="dropdown-item" th:href="@{/index}">Submenu 01</a></li>
-											<li><a class="dropdown-item" th:href="@{/index}">Submenu 02</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
 							<!-- Afișează butonul Login dacă utilizatorul NU este autentificat -->
@@ -132,7 +94,7 @@
 								</form>
 							</li>
 							<li class="nav-item" sec:authorize="isAuthenticated()">
-								<a class="nav-link text-white add-button" href="ad-listing"><i class="fa fa-plus-circle"></i> Nouvelle
+								<a class="nav-link text-white add-button" th:href="@{/announcements/createAnnouncement}"><i class="fa fa-plus-circle"></i> Nouvelle
 									annonce</a>
 							</li>
 						</ul>

@@ -119,7 +119,9 @@
 							<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 								<h3 class="tab-title">Product Review</h3>
 								<div class="product-review">
-									<div class="media">
+
+
+									<div class="media" th:each="feed : ${feedbacks}">
 										<!-- Avater -->
 										<img src="images/user/user-thumb.jpg" alt="avater">
 										<div class="media-body">
@@ -144,10 +146,10 @@
 												</ul>
 											</div>
 											<div class="name">
-												<h5>Jessica Brown</h5>
+												<h5 th:text="${feed.name}"></h5>
 											</div>
 											<div class="date">
-												<p>Mar 20, 2018</p>
+												<p th:text="${feed.email}"></p>
 											</div>
 											<div class="review-comment">
 												<p>
@@ -157,6 +159,8 @@
 											</div>
 										</div>
 									</div>
+
+
 									<div class="review-submission">
 										<h3 class="tab-title">Submit your review</h3>
 										<!-- Rate -->
@@ -198,7 +202,7 @@
 						<h4><a th:if="${announcement.profile != null}"
 							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}"></a></h4>
 						<a th:if="${announcement.profile != null}"
-						   th:href="@{/profiles/{id}(id=${announcement.profile.id})}">Voir tous les annonces</a>
+						   th:href="@{/profile/{id}(id=${announcement.profile.id})}">Voir tous les annonces</a>
 						<ul class="list-inline mt-20">
 							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">Contact</a></li>
 							<li class="list-inline-item"><a href="viewAnnouncement.html" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Calendrier</a></li>
