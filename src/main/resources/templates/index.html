@@ -18,17 +18,17 @@
   <meta name="theme-name" content="classimax" />
 
   <!-- favicon -->
-  <link href="images/favicon.png" rel="shortcut icon">
+  <link th:href="@{/images/favicon.png}" rel="shortcut icon">
 
   <!-- 
   Essential stylesheets
   =====================================-->
-  <link href="plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link href="plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
-  <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="plugins/slick/slick.css" rel="stylesheet">
-  <link href="plugins/slick/slick-theme.css" rel="stylesheet">
-  <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+  <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/plugins/bootstrap/bootstrap-slider.css}" rel="stylesheet">
+  <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+  <link th:href="@{/plugins/slick/slick.css}" rel="stylesheet">
+  <link th:href="@{/plugins/slick/slick-theme.css}" rel="stylesheet">
+  <link th:href="@{/plugins/jquery-nice-select/css/nice-select.css}" rel="stylesheet">
   
   <link href="/css/style.css" rel="stylesheet">
 
@@ -54,37 +54,34 @@
 					<h1>Bénéficier ici et maintenant</h1>
 					<p>Rejoignez les millions de personnes qui demandent et offrent<br> tous les jours dans les communautés locales du monde entier</p>
 					<div class="short-popular-category-list text-center">
-						<h2>Catégorie populaire</h2>
+						<h2>Toutes les catégories</h2>
 						<ul class="list-inline">
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations Électroniques</a>
+								<a href="category.html"> Électroniques</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations Domestiques</a>
+								<a href="category.html"> Domestiques</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations Automobiles</a>
+								<a href="category.html">Automobiles</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Mobilier et Décoration</a>
+								<a href="category.html">Mobilier et Décoration</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Matériel de Jardinage</a>
+								<a href="category.html">Matériel de Jardinage</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Matériel de Sport et Loisirs</a>
+								<a href="category.html">Matériel de Sport et Loisirs</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Bateaux et Nautisme</a>
+								<a href="category.html"> Bateaux et Nautisme</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Matériel de Bureau</a>
+								<a href="category.html"> Matériel de Bureau</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations de Systèmes de Sécurité</a>
-							</li>
-							<li class="list-inline-item">
-								<a href="allAnnouncement.html">Réparations Diverses</a>
+								<a href="category.html"> Systèmes de Sécurité</a>
 							</li>
 						</ul>
 					</div>
@@ -104,9 +101,15 @@
 										<div class="form-group col-lg-3 col-md-6">
 											<select class="w-100 form-control mt-lg-1 mt-md-2">
 												<option>Catégorie</option>
-												<option value="1">Mieux notée</option>
-												<option value="2">Prix le plus bas</option>
-												<option value="4">Prix le plus élevé</option>
+												<option value="1">Électroniques</option>
+												<option value="2">Domestiques</option>
+												<option value="3">Automobiles</option>
+												<option value="4">Mobilier et Décoration</option>
+												<option value="5">Matériel de Jardinage</option>
+												<option value="6">Matériel de Sport et Loisirs</option>
+												<option value="7">Bateaux et Nautisme</option>
+												<option value="8">Matériel de Bureau</option>
+												<option value="9">Systèmes de Sécurité</option>
 											</select>
 										</div>
 										<div class="form-group col-lg-3 col-md-6">
