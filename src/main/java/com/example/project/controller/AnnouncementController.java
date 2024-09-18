@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RequestMapping("/announcements")
 @Controller
 public class AnnouncementController {
@@ -64,12 +66,24 @@ public class AnnouncementController {
         }
     }
 
-    @GetMapping("/profile/{profileId}")
-    public String viewProfileAnnouncements(@PathVariable("profileId") Long profileId, Model model) {
-        Profile profile = profileService.getProfileById(profileId);
+    @GetMapping("/allAnnouncements")
+    public String showAllAnnouncements(Model model) {
+        try {
+            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            model.addAttribute("announcements", announcements);
+//            throw new RuntimeException("Simulated exception");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Désolé, la récupération à partir de la base de données a échoué. Veuillez recharger la page et réessayer.");
+        }
+        return "allAnnouncement";
+    }
+
+    @GetMapping("/profile/{id}")
+    public String viewProfileAnnouncements(@PathVariable("id") Long id, Model model) {
+        Profile profile = profileService.getProfileById(id);
         if (profile != null) {
             model.addAttribute("profile", profile);
-            model.addAttribute("announcements", profile.getAnnouncements());
+           /* model.addAttribute("announcements", profile.getAnnouncements());*/
             return "profile";
         } else {
             return "redirect:/error";

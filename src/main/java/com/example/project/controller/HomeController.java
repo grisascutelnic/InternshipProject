@@ -1,7 +1,9 @@
 package com.example.project.controller;
 
 import com.example.project.entity.Announcement;
+import com.example.project.entity.Feedback;
 import com.example.project.service.AnnouncementService;
+import com.example.project.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,9 @@ public class HomeController {
 
     @Autowired
     private AnnouncementService announcementService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     @GetMapping("/index")
     public String showIndex(Model model) {
