@@ -58,7 +58,8 @@
 								<!-- Dropdown list -->
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item @@dashboardPage" th:href="@{/announcements/allAnnouncements}">Tableau des Annonces</a></li>
-									<li><a class="dropdown-item @@dashboardMyAds" th:href="@{/profile}">Mes Annonces</a></li>
+									<li><a class="dropdown-item @@dashboardMyAds" sec:authorize="isAuthenticated()" th:href="@{/profile}">Mes Annonces</a></li>
+									<li><a class="dropdown-item @@dashboardMyAds" sec:authorize="!isAuthenticated()" th:href="@{/login}">Mes Annonces</a></li>
 								</ul>
 							</li>
 							<li class="nav-item dropdown dropdown-slide @@pages">
@@ -70,24 +71,14 @@
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item @@about" th:href="@{/about-us}">About Us</a></li>
 									<li><a class="dropdown-item @@contact" th:href="@{/contact-us}">Contact Us</a></li>
-									<li><a class="dropdown-item @@profile" th:href="@{/profile}">User Profile</a></li>
-									<li><a class="dropdown-item @@404" th:href="@{/404}">404 Page</a></li>
-									<li><a class="dropdown-item @@package" th:href="@{/package}">Package</a></li>
-									<li><a class="dropdown-item @@singlePage" th:href="@{/single}">Single Page</a></li>
-									<li><a class="dropdown-item @@store" th:href="@{/store}">Store Single</a></li>
-									<li><a class="dropdown-item @@blog" th:href="@{/blog}">Blog</a></li>
-									<li><a class="dropdown-item @@singleBlog" th:href="@{/single-blog}">Blog Details</a></li>
 									<li><a class="dropdown-item @@terms" th:href="@{/terms-condition}">Terms &amp; Conditions</a></li>
 								</ul>
 							</li>
 						</ul>
 						<ul class="navbar-nav ml-auto mt-10">
-							<!-- Afișează butonul Login dacă utilizatorul NU este autentificat -->
 							<li class="nav-item" sec:authorize="!isAuthenticated()">
 								<a class="nav-link login-button" th:href="@{/login}">Inscription</a>
 							</li>
-
-							<!-- Afișează butonul Logout dacă utilizatorul este autentificat -->
 							<li class="nav-item" sec:authorize="isAuthenticated()">
 								<form th:action="@{/logout}" method="post">
 									<a class="nav-link login-button" th:href="@{/logout}">Déconnexion</a>
