@@ -78,12 +78,12 @@ public class AnnouncementController {
         return "allAnnouncement";
     }
 
-    @GetMapping("/profile/{profileId}")
-    public String viewProfileAnnouncements(@PathVariable("profileId") Long profileId, Model model) {
-        Profile profile = profileService.getProfileById(profileId);
+    @GetMapping("/profile/{id}")
+    public String viewProfileAnnouncements(@PathVariable("id") Long id, Model model) {
+        Profile profile = profileService.getProfileById(id);
         if (profile != null) {
             model.addAttribute("profile", profile);
-            model.addAttribute("announcements", profile.getAnnouncements());
+           /* model.addAttribute("announcements", profile.getAnnouncements());*/
             return "profile";
         } else {
             return "redirect:/error";
