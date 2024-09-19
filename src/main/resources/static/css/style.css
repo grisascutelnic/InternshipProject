@@ -1856,8 +1856,30 @@ ul.pagination .active a {
 	font-size: 20px;
 	cursor: pointer;
 	color: #e6b322;
-	padding: 0 5px;
+	margin-right: 2px; /* Ajustează spațiul între stele */
 }
+
+.widget.rate .starrr i:last-child {
+	margin-right: 0; /* Elimină marginea de la ultima stea */
+}
+
+.widget.rate .starrr i.filled {
+	color: #e6b322;
+}
+
+.widget.rate .starrr i.unfilled {
+	color: #d3d3d3;
+}
+
+.star {
+	font-size: 24px;
+	color: #ddd; /* Culoarea steluțelor necolorate */
+}
+
+.star.filled {
+	color: #ffd700; /* Culoarea steluțelor colorate (auriu) */
+}
+
 
 .widget.filter {
 	padding-bottom: 17px;

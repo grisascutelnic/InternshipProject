@@ -21,6 +21,8 @@
   <!-- 
   Essential stylesheets
   =====================================-->
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+
   <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
   <link th:href="@{/plugins/bootstrap/bootstrap-slider.css}" rel="stylesheet">
   <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
@@ -62,12 +64,19 @@
             <p th:text="'Enregistré le ' + ${#dates.format(profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
             <a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/profile/editProfile/{id}(id=${profile.id})}" class="btn btn-main-sm">Modifier le profil</a>
 
-            <div class="widget rate">
-            <h5 class="widget-header text-center">Évaluation de l'utilisateur</h5>
-            <!-- Rate -->
-              <span th:text="${profile.rating}"></span>
-            <div class="starrr"></div>
+                     <!--Start Rating-->
+
+            <div class="rating">
+    <span th:each="i : ${#numbers.sequence(1, 5)}"
+          th:class="${profile.rating >= i} ? 'star filled' : 'star'"
+          th:data-index="${i}"
+          class="star"
+          onclick="rateProfile(${profile.id}, ${i})">&#9733;</span>
             </div>
+
+
+
+            <!--End Rating-->
 
           </div>
           <!-- Dashboard Links -->
@@ -228,6 +237,29 @@
 <!-- 
 Essential Scripts
 =====================================-->
+
+<script>
+  function rateProfile(profileId, rating) {
+    fetch(`/profiles/${profileId}/rate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF token pentru Spring Security
+      },
+      body: JSON.stringify({ rating: rating })
+    })
+            .then(response => response.json())
+            .then(data => {
+              // Actualizează interfața utilizatorului cu noul rating
+              document.querySelectorAll('.star').forEach(star => {
+                star.classList.toggle('filled', parseInt(star.getAttribute('data-index')) <= data.newRating);
+              });
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
+
+
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/popper.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/bootstrap.min.js}"></script>
