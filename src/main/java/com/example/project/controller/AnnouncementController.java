@@ -66,23 +66,17 @@ public class AnnouncementController {
     @GetMapping("/viewAnnouncement/{id}")
     public String viewAnnouncement(@PathVariable("id") Long id, Model model, Authentication auth) {
         // Obține feedback-urile pentru anunțul specificat
+        Profile profile = profileService.findByEmail(auth.getName());
         List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("feedback", new Feedback());
+        model.addAttribute("profile", profile);
 
         // Obține anunțul specificat de ID
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
 
-            if (auth != null && auth.isAuthenticated()) {
-                // Obține profilul utilizatorului autentificat
-                String username = auth.getName();
-                Profile profile = profileService.getProfileByUsername(username);
-                if (profile != null) {
-                    model.addAttribute("profile", profile);
-                }
-            }
             // Nu este nevoie să adaugi announcementId ca model attribute, deoarece ID-ul este deja parte din URL
             return "viewAnnouncement";
         } else {

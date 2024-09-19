@@ -63,6 +63,11 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public Profile findProfileById(Long profileId) {
+        return profileRepository.findById(profileId).orElse(null);
+    }
+
+    @Override
     public Profile getProfileByUsername(String email) {
         // Caută profilul asociat utilizatorului pe baza username-ului (email-ului sau alt identificator unic)
         return profileRepository.findByUserEmail(email)
