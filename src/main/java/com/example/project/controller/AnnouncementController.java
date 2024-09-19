@@ -74,6 +74,15 @@ public class AnnouncementController {
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
+
+            if (auth != null && auth.isAuthenticated()) {
+                // Obține profilul utilizatorului autentificat
+                String username = auth.getName();
+                Profile profile = profileService.getProfileByUsername(username);
+                if (profile != null) {
+                    model.addAttribute("profile", profile);
+                }
+            }
             // Nu este nevoie să adaugi announcementId ca model attribute, deoarece ID-ul este deja parte din URL
             return "viewAnnouncement";
         } else {

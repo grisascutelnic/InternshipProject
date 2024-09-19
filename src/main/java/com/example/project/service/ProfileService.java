@@ -6,6 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProfileService {
+
+    Profile getProfileByUsername(String username);
+
     Profile findByEmail(String email);
 
     Profile findById(Long Id);

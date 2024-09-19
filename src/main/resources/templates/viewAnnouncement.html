@@ -146,8 +146,7 @@
 													</ul>
 												</div>
 												<div class="name">
-													<p th:text="${feed.profile != null ? feed.profile.firstName : 'N/A'}"></p>
-													<p th:text="${feed.profile != null ? feed.profile.lastName : 'N/A'}"></p>
+													<h5 th:text="${feed.profile != null ? feed.profile.firstName + ' ' + feed.profile.lastName : 'N/A'}"></h5>
 												</div>
 												<div class="date">
 													<p th:text="${feed.email}"></p>
