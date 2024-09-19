@@ -15,6 +15,9 @@ import java.util.List;
         @Autowired
         private FeedbackRepository feedbackRepository;
 
+        @Autowired
+        private ProfileService profileService;
+
         @Override
         public List<Feedback> getAllFeedbacks() {
             return feedbackRepository.findAll();
@@ -28,6 +31,14 @@ import java.util.List;
 
         @Override
         public void saveFeedback(Feedback feedback, Authentication authentication) {
+            String username = authentication.getName();
+            Profile profile = profileService.getProfileByUsername(username);
+
+            // Setează profilul utilizatorului pentru feedback
+            if (profile != null) {
+                feedback.setProfile(profile);
+            }
+
             feedbackRepository.save(feedback);
         }
 

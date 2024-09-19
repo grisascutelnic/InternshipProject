@@ -61,4 +61,11 @@ public class ProfileServiceImpl implements ProfileService {
             throw new InternalServerErrorException("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public Profile getProfileByUsername(String email) {
+        // Caută profilul asociat utilizatorului pe baza username-ului (email-ului sau alt identificator unic)
+        return profileRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Profile not found for username: " + email));
+    }
 }
