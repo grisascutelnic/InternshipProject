@@ -31,10 +31,16 @@ public class AnnouncementController {
 
     @PostMapping("/saveAnnouncement")
     public String saveAnnouncement(@ModelAttribute("announcement") Announcement announcement,
-    @RequestParam("imageFile") MultipartFile imageFile, Authentication auth) {
+                                   @RequestParam("imageFile") MultipartFile imageFile,
+                                   @RequestParam(value = "negotiable", required = false) String negotiable,
+                                   Authentication auth) {
 
         Profile profile = profileService.findByEmail(auth.getName());
         announcement.setProfile(profile);
+
+        if (negotiable != null && negotiable.equals("true")) {
+            announcement.setPrice(0.0);
+        }
 
         announcementService.saveAnnouncement(announcement, imageFile, auth);
         return "redirect:/index";

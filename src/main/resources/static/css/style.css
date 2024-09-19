@@ -2638,3 +2638,7 @@ form textarea {
 	background-color: #47acf4;
 	color: #fff;
 }
+
+#price {
+	display: block;
+}
