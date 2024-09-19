@@ -34,5 +34,8 @@ public class Feedback {
     @Column(name = "message")
     private String message;  // Conținutul feedback-ului
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
 }
