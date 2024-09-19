@@ -31,9 +31,6 @@ public class Announcement {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "number")
-    private String number;
-
     @Size(max = 1000)
     @Column(name = "description")
     private String description;

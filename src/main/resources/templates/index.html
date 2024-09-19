@@ -66,7 +66,7 @@
 								<a href="category.html" style="color: white; background-color: black; border: 1px solid white;">Automobiles</a>
 							</li>
 							<li class="list-inline-item">
-								<a href="category.html" style="color: white; background-color: black; border: 1px solid white;">Mobilier </a>
+								<a href="category.html" style="color: white; background-color: black; border: 1px solid white;">Mobilier</a>
 							</li>
 							<li class="list-inline-item">
 								<a href="category.html" style="color: white; background-color: black; border: 1px solid white;">Jardinage</a>
@@ -161,10 +161,11 @@
 						<h4 th:text="${announcement.title}" class="section-name"></h4>
 						<ul class="list-inline product-meta">
 							<li class="list-inline-item">
-								<a th:href="@{'/announcements/viewAnnouncement/' + ${announcement.id}}"><i class="fa fa-folder-open-o"></i> Electronics</a>
+								<i class="fa fa-folder-open-o"><a th:href="@{'/announcements/viewAnnouncement/' + ${announcement.id}}" th:text="${announcement.category}"></a></i>
 							</li>
 							<li class="list-inline-item">
-								<i type="date" class="fa fa-calendar" th:date="${announcement.date}"></i>
+								<i class="fa fa-calendar"></i>
+								<a th:text="${#dates.format(announcement.date, 'yyyy-dd-MM')}"></a>
 							</li>
 						</ul>
 					</div>
