@@ -16,4 +16,6 @@ public interface AnnouncementService {
     void updateAnnouncement(Announcement announcement, MultipartFile imageFile);
 
     Announcement getAnnouncementById(Long id);
+
+    List<Announcement> findByProfileId(Long profileId);
 }

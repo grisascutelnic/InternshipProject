@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Base64;
+import java.util.Date;
 
 import static java.util.Base64.getDecoder;
 
@@ -35,8 +36,11 @@ public class Announcement {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "date")
-    private String date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    @Column(name = "category")
+    private String category;
 
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")

@@ -1,6 +1,8 @@
 package com.example.project.controller;
 
+import com.example.project.entity.Announcement;
 import com.example.project.entity.Profile;
+import com.example.project.service.AnnouncementService;
 import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+import java.util.List;
+
 @RequestMapping("/profile")
 @Controller
 public class ProfileController {
@@ -16,33 +21,57 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private AnnouncementService announcementService;
+
     @GetMapping("/{id}")
     public String showProfile(Model model,
                               @PathVariable Long id,
-                              Authentication auth) {
+                              Authentication auth,
+                              Principal principal) {
         Profile profile = profileService.findById(id);
         if (profile == null) {
             model.addAttribute("error", "Profile not found for email: " + auth.getName());
             return "error"; // Point to an error page, or return the same profile page with an error message
         }
+
+        List<Announcement> announcements = announcementService.findByProfileId(id);
+
         model.addAttribute("profile", profile);
         model.addAttribute("profileId", id);
+        model.addAttribute("announcements", announcements);
+
+        if (principal != null) {
+            String authenticatedEmail = principal.getName();
+            model.addAttribute("authenticatedEmail", authenticatedEmail);
+        }
+//        model.addAttribute("authenticatedEmail", auth.getName());
         return "profile";
     }
 
 
-    @GetMapping("/editProfile")
-    public String showEditContactForm(Model model, Authentication auth) {
-        Profile profile = profileService.findByEmail(auth.getName());
+    @GetMapping("/editProfile/{id}")
+    public String showEditProfileForm(@PathVariable Long id, Model model, Authentication auth) {
+        Profile profile = profileService.findById(id);
+        if (profile == null || !profile.getEmail().equals(auth.getName())) {
+            // În cazul în care profilul nu există sau utilizatorul nu are permisiunea de a edita acest profil
+            return "redirect:/error";
+        }
         model.addAttribute("profile", profile);
         return "editProfile";
     }
 
-    @PostMapping("/updateProfile")
-    public String updateContact(@ModelAttribute("profile") Profile editedProfile,
+
+    @PostMapping("/updateProfile/{id}")
+    public String updateContact(@PathVariable Long id,
+                                @ModelAttribute("profile") Profile editedProfile,
                                 @RequestParam("imageFile") MultipartFile imageFile,
                                 Authentication auth) {
-        profileService.updateProfile(editedProfile, imageFile, auth);
-        return "redirect:/profile/editProfile";
+        if (editedProfile == null) {
+            // În cazul în care profilul nu există sau utilizatorul nu are permisiunea de a actualiza acest profil
+            return "redirect:/error";
+        }
+        profileService.updateProfile(id, editedProfile, imageFile, auth);
+        return "redirect:/profile/" + id;
     }
 }
