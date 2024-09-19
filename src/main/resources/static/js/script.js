@@ -195,3 +195,19 @@
 
 
 })(jQuery);
+
+function togglePriceField() {
+  var negotiable = document.getElementById("negotiableCheckbox");
+  var priceField = document.getElementById("price");
+
+  if (negotiable.checked) {
+    priceField.style.display = "none";
+    priceField.value = "";
+  } else {
+    priceField.style.display = "block";
+  }
+}
+
+window.onload = function() {
+  togglePriceField();
+};
