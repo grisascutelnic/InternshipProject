@@ -144,7 +144,8 @@
             <tr th:each="announcement : ${announcements}">
               <td class="product-thumb">
                 <img width="80px" height="auto"
-                     th:src="${announcement.base64Image != null ? 'data:image/jpeg;base64,' + announcement.base64Image : '/images/default-profile.jpg'}"
+                     th:if="${announcement.base64Image != null}"
+                     th:src="'data:image/jpeg;base64,' + ${announcement.base64Image}"
                      alt="image description">
               </td>
               <td class="product-details">
