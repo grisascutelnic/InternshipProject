@@ -56,7 +56,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             announcement.setTitle(updatedAnnouncement.getTitle());
             announcement.setPrice(updatedAnnouncement.getPrice());
             announcement.setDescription(updatedAnnouncement.getDescription());
-            announcement.setNumber(announcement.getNumber());
 
             if (!imageFile.isEmpty()) {
                 try {
