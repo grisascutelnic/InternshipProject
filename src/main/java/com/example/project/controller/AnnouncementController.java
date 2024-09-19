@@ -4,6 +4,7 @@ import com.example.project.entity.Announcement;
 import com.example.project.entity.Feedback;
 import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
+import com.example.project.service.FeedbackService;
 import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,8 @@ public class AnnouncementController {
     private AnnouncementService announcementService;
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private FeedbackService feedbackService;
 
     @GetMapping("/createAnnouncement")
     public String showNewAnnouncement(Model model) {
@@ -61,16 +64,37 @@ public class AnnouncementController {
     }
 
     @GetMapping("/viewAnnouncement/{id}")
-    public String viewAnnouncement(@PathVariable("id") Long id, Model model) {
+    public String viewAnnouncement(@PathVariable("id") Long id, Model model, Authentication auth) {
+        // Obține feedback-urile pentru anunțul specificat
+        List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
+        model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("feedback", new Feedback());
+
+        // Obține anunțul specificat de ID
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
+            // Nu este nevoie să adaugi announcementId ca model attribute, deoarece ID-ul este deja parte din URL
             return "viewAnnouncement";
         } else {
             return "redirect:/viewAnnouncement?error";
         }
     }
+
+
+//    @GetMapping("/viewAnnouncement/{id}")
+//    public String viewAnnouncement(@PathVariable("id") Long id, Model model) {
+//        Announcement announcement = announcementService.getAnnouncementById(id);
+//        if (announcement != null) {
+//            List<Feedback> feedbacks = feedbackService.getAllFeedbacks(); // Obține feedback-uri
+//            model.addAttribute("announcement", announcement);
+//            model.addAttribute("feedbacks", feedbacks); // Adaugă feedback-uri în model
+//            return "viewAnnouncement"; // Numele fișierului HTML
+//        } else {
+//            return "redirect:/viewAnnouncement?error"; // Redirecționează dacă anunțul nu este găsit
+//        }
+//    }
+
 
     @GetMapping("/allAnnouncements")
     public String showAllAnnouncements(Model model) {

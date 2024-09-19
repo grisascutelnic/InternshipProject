@@ -65,6 +65,9 @@ public class Profile {
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Announcement> announcements = new ArrayList<>();
 
+    @OneToMany(mappedBy = "profile")
+    private List<Feedback> feedbacks;
+
     public String getBase64Image() {
         if (this.image != null) {
             return Base64.getEncoder().encodeToString(this.image);
