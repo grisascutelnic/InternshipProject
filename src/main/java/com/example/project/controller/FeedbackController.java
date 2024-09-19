@@ -1,8 +1,12 @@
 package com.example.project.controller;
 
+import com.example.project.entity.Announcement;
 import com.example.project.entity.Feedback;
+import com.example.project.entity.Profile;
+import com.example.project.service.AnnouncementService;
 import com.example.project.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +20,21 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
+    @Autowired
+    private AnnouncementService announcementService;
+
+//    @GetMapping("/list")
+//    public String listFeedbacks(Model model) {
+//        List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
+//        model.addAttribute("feedbacks", feedbacks);
+//        return "viewAnnouncement";  // Pagina HTML pentru afișarea listei de feedback-uri
+//    }
+
     @GetMapping("/list")
     public String listFeedbacks(Model model) {
         List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
         model.addAttribute("feedbacks", feedbacks);
-        return "listFeedbacks";  // Pagina HTML pentru afișarea listei de feedback-uri
+        return "viewAnnouncement";  // Pagina HTML pentru afișarea listei de feedback-uri
     }
 
     @GetMapping("/createFeedback")
@@ -34,16 +48,13 @@ public class FeedbackController {
         model.addAttribute("feedback", new Feedback());
         return "viewAnnouncement";
     }
-//redrictioneze pe pagina de feedback anunt
+
     @PostMapping("/saveFeedback")
-    public String saveFeedback(@ModelAttribute("feedback") Feedback feedback) {
-        feedbackService.saveFeedback(feedback);
-        return "redirect:/announcements/viewAnnouncement";
+    public String saveFeedback(@ModelAttribute("feedback") Feedback feedback,
+                               @RequestParam("announcementId") Long announcementId,
+                               Authentication authentication) {
+        feedbackService.saveFeedback(feedback, authentication);
+        return "redirect:/announcements/viewAnnouncement/" + announcementId;
     }
 
-    @DeleteMapping("/deleteFeedback/{id}")
-    public String deleteFeedback(@PathVariable("id") Long id) {
-        feedbackService.deleteFeedback(id);
-        return "redirect:/feedbacks/list";
-    }
 }
