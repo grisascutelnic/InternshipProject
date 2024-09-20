@@ -85,7 +85,7 @@
 
             <div>
               <!-- Afișează media rating-urilor -->
-              <p>Rating Mediu: <span id="average-rating" th:text="${profile.getAverageRating()}"></span></p>
+              <p class="text-center text-muted mb-1" id="average-rating" th:text="'Rating ' + ${T(java.lang.String).format('%.1f', profile.averageRating)}"></p>
 
               <!-- Sistemul de rating -->
               <div id="rating-stars">
@@ -101,14 +101,11 @@
               </form>
             </div>
 
-
-
             <!-- Edit Profile Button -->
             <a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/profile/editProfile/{id}(id=${profile.id})}" class="btn btn-main-sm">Modifier le profil</a>
           </div>
 
-
-          <!-- Dashboard Links -->
+            <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
             <ul>
               <li class="active">
@@ -291,27 +288,66 @@ Essential Scripts
 
 <script>
   const stars = document.querySelectorAll('.star');
+  const averageRatingText = document.getElementById('average-rating').innerText.trim();
+
+  console.log('Textul mediu al ratingului:', averageRatingText);
+
+  // Înlocuiește virgula cu punct
+  const formattedRatingText = averageRatingText.replace(',', '.');
+  const match = formattedRatingText.match(/(\d+\.\d+)/);
+
+  if (match) {
+    console.log('Potrivire găsită:', match[1]);
+  } else {
+    console.log('Nicio potrivire găsită');
+  }
+
+  const averageRating = match ? parseFloat(match[1]) : 0; // Verifică dacă a găsit o potrivire
+
+  console.log('Ratingul mediu convertit:', averageRating);
+
+  function fillStarsBasedOnAverage(rating) {
+    let totalFilledStars = 0;
+
+    if (rating >= 4.5) {
+      totalFilledStars = 5;
+    } else if (rating >= 3.5) {
+      totalFilledStars = 4;
+    } else if (rating >= 2.5) {
+      totalFilledStars = 3;
+    } else if (rating >= 1.5) {
+      totalFilledStars = 2;
+    } else if (rating >= 0.5) {
+      totalFilledStars = 1;
+    }
+
+    stars.forEach((star, index) => {
+      if (index < totalFilledStars) {
+        star.classList.add('filled');
+      } else {
+        star.classList.remove('filled');
+      }
+    });
+  }
+
+  fillStarsBasedOnAverage(averageRating);
 
   stars.forEach((star, index) => {
-    // Când utilizatorul trece cu mouse-ul peste stea
     star.addEventListener('mouseover', () => {
       fillStars(index);
     });
 
-    // Când utilizatorul scoate mouse-ul de pe stele
     star.addEventListener('mouseout', () => {
       resetStars();
     });
 
-    // Când utilizatorul face click pe o stea
     star.addEventListener('click', () => {
       const rating = index + 1;
       document.getElementById('rating-value').value = rating;
-      document.getElementById('rating-form').submit(); // Trimite formularul
+      document.getElementById('rating-form').submit();
     });
   });
 
-  // Funcție pentru a colora toate stelele până la cea selectată
   function fillStars(index) {
     stars.forEach((star, i) => {
       if (i <= index) {
@@ -322,14 +358,11 @@ Essential Scripts
     });
   }
 
-  // Funcție pentru a reseta stelele la starea inițială (necolorate)
   function resetStars() {
-    stars.forEach(star => {
-      star.classList.remove('filled');
-    });
+    fillStarsBasedOnAverage(averageRating);
   }
-
 </script>
+
 
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/popper.min.js}"></script>

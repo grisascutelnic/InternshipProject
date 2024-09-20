@@ -5,6 +5,7 @@ import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
 import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @RequestMapping("/profile")
@@ -81,11 +83,14 @@ public class ProfileController {
     }
 
     @PostMapping("/rate/{id}")
-    public String rateProfile(@PathVariable Long id, @RequestParam("rating") int rating, Authentication auth) {
+    public String rateProfile(@PathVariable Long id, @RequestParam("rating") int rating, Authentication auth, Model model) {
         Profile profile = profileService.findById(id);
         if (profile == null) {
             return "redirect:/error";
         }
+        DecimalFormat df = new DecimalFormat("#.#");
+        String formattedRating = df.format(profile.getAverageRating());
+        model.addAttribute("formattedRating", formattedRating);
 
         // Actualizează totalul rating-urilor și numărul de rating-uri
         profile.setTotalRating(profile.getTotalRating() + rating);
