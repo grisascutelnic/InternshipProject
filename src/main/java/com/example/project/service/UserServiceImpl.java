@@ -86,4 +86,25 @@ public class UserServiceImpl implements UserService {
         userDto.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         return userDto;
     }
+
+    @Override
+    public boolean checkCurrentPassword(String email, String currentPassword) {
+        User user = userRepository.findByEmail(email);
+        return user != null && passwordEncoder.matches(currentPassword, user.getPassword());
+    }
+
+    @Override
+    public void changePassword(String email, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setPassword(passwordEncoder.encode(newPassword)); // criptează noua parolă
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
