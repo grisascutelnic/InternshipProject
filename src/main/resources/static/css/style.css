@@ -1855,20 +1855,20 @@ ul.pagination .active a {
 .widget.rate .starrr i {
 	font-size: 20px;
 	cursor: pointer;
-	color: #e6b322;
-	margin-right: 2px; /* Ajustează spațiul între stele */
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
+	margin-right: 2px;
 }
 
 .widget.rate .starrr i:last-child {
-	margin-right: 0; /* Elimină marginea de la ultima stea */
+	margin-right: 0;
 }
 
 .widget.rate .starrr i.filled {
-	color: #e6b322;
+	color: #e6b322; /* Culoarea aurie pentru stelele completate */
 }
 
 .widget.rate .starrr i.unfilled {
-	color: #d3d3d3;
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
 }
 
 .star {

@@ -6,12 +6,12 @@
   <style>
     .star {
       font-size: 24px;
-      color: #ccc; /* Gri implicit */
+      color: #ccc;
       cursor: pointer;
     }
 
-    .star.hovered {
-      color: gold; /* Colorează stelele */
+    .star.filled {
+      color: gold;
     }
   </style>
   <!-- ** Basic Page Needs ** -->
@@ -84,33 +84,22 @@
 
 
             <div>
-            <!-- Afișează media rating-urilor -->
-            <p>Rating Mediu: <span id="average-rating" th:text="${profile.getAverageRating()}"></span></p>
+              <!-- Afișează media rating-urilor -->
+              <p>Rating Mediu: <span id="average-rating" th:text="${profile.getAverageRating()}"></span></p>
 
+              <!-- Sistemul de rating -->
+              <div id="rating-stars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+              </div>
 
-<!--              <div class="widget rate">-->
-<!--                &lt;!&ndash; Heading &ndash;&gt;-->
-<!--                <h5 class="widget-header text-center">What would you rate-->
-<!--                  <br>-->
-<!--                  this product</h5>-->
-<!--                &lt;!&ndash; Rate &ndash;&gt;-->
-<!--                <div class="starrr"></div>-->
-<!--              </div>-->
-<!--              -->
-
-            <!-- Sistemul de rating -->
-            <div id="rating-stars">
-              <span class="star" data-value="1">&#9733;</span>
-              <span class="star" data-value="2">&#9733;</span>
-              <span class="star" data-value="3">&#9733;</span>
-              <span class="star" data-value="4">&#9733;</span>
-              <span class="star" data-value="5">&#9733;</span>
+              <form id="rating-form" th:action="@{'/profile/rate/' + ${profile.id}}" method="post">
+                <input type="hidden" name="rating" id="rating-value">
+              </form>
             </div>
-
-            <form id="rating-form" th:action="@{'/profile/rate/' + ${profile.id}}" method="post">
-              <input type="hidden" name="rating" id="rating-value">
-            </form>
-          </div>
 
 
 
@@ -301,13 +290,45 @@ Essential Scripts
 =====================================-->
 
 <script>
-  document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', function() {
-      const rating = this.getAttribute('data-value');
+  const stars = document.querySelectorAll('.star');
+
+  stars.forEach((star, index) => {
+    // Când utilizatorul trece cu mouse-ul peste stea
+    star.addEventListener('mouseover', () => {
+      fillStars(index);
+    });
+
+    // Când utilizatorul scoate mouse-ul de pe stele
+    star.addEventListener('mouseout', () => {
+      resetStars();
+    });
+
+    // Când utilizatorul face click pe o stea
+    star.addEventListener('click', () => {
+      const rating = index + 1;
       document.getElementById('rating-value').value = rating;
-      document.getElementById('rating-form').submit(); // Trimite formularul la server
+      document.getElementById('rating-form').submit(); // Trimite formularul
     });
   });
+
+  // Funcție pentru a colora toate stelele până la cea selectată
+  function fillStars(index) {
+    stars.forEach((star, i) => {
+      if (i <= index) {
+        star.classList.add('filled');
+      } else {
+        star.classList.remove('filled');
+      }
+    });
+  }
+
+  // Funcție pentru a reseta stelele la starea inițială (necolorate)
+  function resetStars() {
+    stars.forEach(star => {
+      star.classList.remove('filled');
+    });
+  }
+
 </script>
 
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
