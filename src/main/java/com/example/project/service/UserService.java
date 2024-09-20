@@ -13,4 +13,9 @@ public interface UserService {
 
     List<UserDto> findAllUsers();
 
+    boolean checkCurrentPassword(String email, String currentPassword);
+
+    void changePassword(String email, String newPassword);
+
+    void deleteUser(Long id);
 }
