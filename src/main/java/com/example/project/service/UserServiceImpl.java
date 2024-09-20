@@ -55,7 +55,8 @@ public class UserServiceImpl implements UserService {
         profile.setEmail(userDto.getEmail());
         profile.setPhone(userDto.getPhone());
         profile.setRegistrationDate(new Date());
-        profile.setRating(0);
+//        profile.setTotalRating(0);
+//        profile.setNumberOfRatings(1);
 
         Role role = roleRepository.findByName("ROLE_USER");
 

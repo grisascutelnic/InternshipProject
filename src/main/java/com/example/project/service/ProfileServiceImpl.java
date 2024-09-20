@@ -73,4 +73,9 @@ public class ProfileServiceImpl implements ProfileService {
         return profileRepository.findByUserEmail(email)
                 .orElseThrow(() -> new RuntimeException("Profile not found for username: " + email));
     }
+
+    public void save(Profile profile) {
+        profileRepository.save(profile);
+    }
+
 }

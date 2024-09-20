@@ -51,12 +51,23 @@ public class Profile {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "rating")
-    private double rating;
-
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
+
+    @Column(name = "total_rating")
+    private int totalRating = 0;
+
+    @Column(name = "number_of_ratings")
+    private int numberOfRatings = 1;
+
+    // Metodă pentru calcularea mediei rating-urilor
+    public double getAverageRating() {
+        if (numberOfRatings == 0) {
+            return 0;
+        }
+        return (double) totalRating / numberOfRatings;
+    }
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
