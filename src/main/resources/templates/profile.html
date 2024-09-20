@@ -3,7 +3,17 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+  <style>
+    .star {
+      font-size: 24px;
+      color: #ccc; /* Gri implicit */
+      cursor: pointer;
+    }
 
+    .star.hovered {
+      color: gold; /* Colorează stelele */
+    }
+  </style>
   <!-- ** Basic Page Needs ** -->
   <meta charset="utf-8">
   <title>OmniPro</title>
@@ -51,34 +61,64 @@
       <div class="col-lg-4">
         <div class="sidebar">
           <!-- User Widget -->
+
           <div class="widget user-dashboard-profile">
             <!-- User Image -->
             <div class="image d-flex justify-content-center">
-<!--              <img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="Profile Image" class="profile-image rounded-circle">-->
               <img th:src="${profile.image != null} ? 'data:image/jpeg;base64,' + ${profile.base64Image} : @{/images/default-profile.jpg}"
                    alt="Profile Image" class="profile-image rounded-circle">
-
             </div>
             <!-- User Name -->
-            <h5 class="text-center" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h5>
-            <p th:text="'Enregistré le ' + ${#dates.format(profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
-            <a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/profile/editProfile/{id}(id=${profile.id})}" class="btn btn-main-sm">Modifier le profil</a>
+            <h5 class="text-center mt-3" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h5>
+            <p class="text-center text-muted mb-1" th:text="'Enregistré le ' + ${#dates.format(profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
 
-                     <!--Start Rating-->
+            <!-- Phone Number -->
+            <p class="text-center text-muted mb-1" th:if="${authenticatedEmail != null && profile.phone != null}">
+              <i class="fa fa-phone"></i> <span th:text="${profile.phone}"></span>
+            </p>
 
-            <div class="rating">
-    <span th:each="i : ${#numbers.sequence(1, 5)}"
-          th:class="${profile.rating >= i} ? 'star filled' : 'star'"
-          th:data-index="${i}"
-          class="star"
-          onclick="rateProfile(${profile.id}, ${i})">&#9733;</span>
+            <!-- Location -->
+            <p class="text-center text-muted mb-3" th:if="${authenticatedEmail != null && profile.location != null}">
+              <i class="fa fa-map-marker"></i> <span th:text="${profile.location}"></span>
+            </p>
+
+
+            <div>
+            <!-- Afișează media rating-urilor -->
+            <p>Rating Mediu: <span id="average-rating" th:text="${profile.getAverageRating()}"></span></p>
+
+
+<!--              <div class="widget rate">-->
+<!--                &lt;!&ndash; Heading &ndash;&gt;-->
+<!--                <h5 class="widget-header text-center">What would you rate-->
+<!--                  <br>-->
+<!--                  this product</h5>-->
+<!--                &lt;!&ndash; Rate &ndash;&gt;-->
+<!--                <div class="starrr"></div>-->
+<!--              </div>-->
+<!--              -->
+
+            <!-- Sistemul de rating -->
+            <div id="rating-stars">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
             </div>
 
-
-
-            <!--End Rating-->
-
+            <form id="rating-form" th:action="@{'/profile/rate/' + ${profile.id}}" method="post">
+              <input type="hidden" name="rating" id="rating-value">
+            </form>
           </div>
+
+
+
+            <!-- Edit Profile Button -->
+            <a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/profile/editProfile/{id}(id=${profile.id})}" class="btn btn-main-sm">Modifier le profil</a>
+          </div>
+
+
           <!-- Dashboard Links -->
           <div class="widget user-dashboard-menu" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
             <ul>
@@ -95,12 +135,6 @@
 <!--                </a>-->
               </li>
 
-<!--              <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> Favourite Ads-->
-<!--                  <span>5</span></a></li>-->
-<!--              <li><a href="dashboard-archived-ads.html"><i class="fa fa-file-archive-o"></i>Archived Ads-->
-<!--                  <span>12</span></a></li>-->
-<!--              <li><a href="dashboard-pending-ads.html"><i class="fa fa-bolt"></i> Pending Approval<span>23</span></a>-->
-<!--              </li>-->
               <li><a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/logout}"><i class="fa fa-cog"></i> Déconnexion</a></li>
               <li><a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" href="#!" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Supprimer le compte</a></li>
             </ul>
@@ -136,66 +170,94 @@
 
         </div>
       </div>
+
+<!--      Descriere-->
+<!--      <div class="col-lg-8">-->
+<!--        &lt;!&ndash; Recently Favorited &ndash;&gt;-->
+<!--        <div class="widget dashboard-container my-adslist">-->
+<!--          &lt;!&ndash; Profile Description Container &ndash;&gt;-->
+<!--          <div class="profile-description-container mt-4">-->
+<!--            <h4 class="mb-3">Description</h4>-->
+<!--            <p class="text-muted" th:text="${profile.description != null ? profile.description : 'Aucune description disponible'}"></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
       <div class="col-lg-8">
         <!-- Recently Favorited -->
         <div class="widget dashboard-container my-adslist">
-          <h3 class="widget-header">Mes annonces</h3>
-          <table class="table table-responsive product-dashboard-table">
-            <thead>
-            <tr>
-              <th>L'image</th>
-              <th>Titre du produit</th>
-              <th class="text-center">Catégorie</th>
-              <th class="text-center">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="announcement : ${announcements}">
-              <td class="product-thumb">
-                <img width="80px" height="auto"
-                     th:if="${announcement.base64Image != null}"
-                     th:src="'data:image/jpeg;base64,' + ${announcement.base64Image}"
-                     alt="image description">
-              </td>
-              <td class="product-details">
-                <h3 class="title" th:text="${announcement.title}">Macbook Pro 15inch</h3>
-                <span class="add-id"><strong>Ad ID:</strong> <span th:text="${announcement.id}">ng3D5hAMHPajQrM</span></span>
-                <span><strong>Posted on: </strong><time th:text="${announcement.date}">Jun 27, 2017</time></span>
-<!--                <span class="status active"><strong>Status</strong><span th:text="${announcement.number}">Active</span></span>-->
-<!--                <span class="location"><strong>Location</strong><span th:text="${announcement.location}">Dhaka, Bangladesh</span></span>-->
-              </td>
-              <td class="product-category"><span class="categories" th:text="${announcement.category}">Laptops</span></td>
-              <td class="action" data-title="Action">
-                <div class="">
-                  <ul class="list-inline justify-content-center">
-                    <li class="list-inline-item">
-                      <a data-toggle="tooltip" data-placement="top" title="view" class="view"
-                         th:href="@{/announcements/viewAnnouncement/{id}(id=${announcement.id})}">
-                        <i class="fa fa-eye"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
-                      <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit"
-                         th:href="@{/announcements/edit/{id}(id=${announcement.id})}">
-                        <i class="fa fa-pencil"></i>
-                      </a>
-                    </li>
-                    <li class="list-inline-item" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
-                      <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete"
-                         th:href="@{/announcements/deleteAnnouncement/{id}(id=${announcement.id})}">
-                        <i class="fa fa-trash"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+
+          <div class="profile-description-container mt-4 p-3 rounded shadow-sm bg-light">
+            <h4 class="mb-3 text-primary">Description:</h4>
+            <p class="text-muted" th:text="${profile.description != null ? profile.description : 'Aucune description disponible'}"></p>
+          </div>
+
+          <div th:if="${#lists.isEmpty(announcements)}">
+            <p class="text-center text-muted mt-4" style="font-size: 1.5em; color: #ff5722; font-weight: bold;">
+              Il n'y a actuellement aucune annonce ajoutée.
+            </p>
+          </div>
+
+          <div th:if="${!#lists.isEmpty(announcements)}">
+            <table class="table table-responsive product-dashboard-table profile-description-container mt-4 p-3 rounded shadow-sm bg-light">
+              <thead>
+              <tr>
+                <th>L'image</th>
+                <th>Titre du produit</th>
+                <th class="text-center">Catégorie</th>
+                <th class="text-center">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="announcement : ${announcements}">
+                <td class="product-thumb">
+                  <img width="80px" height="auto"
+                       th:if="${announcement.base64Image != null}"
+                       th:src="'data:image/jpeg;base64,' + ${announcement.base64Image}"
+                       alt="image description">
+                </td>
+                <td class="product-details">
+                  <h3 class="title" th:text="${announcement.title}">Macbook Pro 15inch</h3>
+                  <span class="add-id"><strong>Ad ID:</strong> <span th:text="${announcement.id}">ng3D5hAMHPajQrM</span></span>
+                  <span><strong>Posted on: </strong><time th:text="${announcement.date}">Jun 27, 2017</time></span>
+                </td>
+                <td class="product-category"><span class="categories" th:text="${announcement.category}">Laptops</span></td>
+                <td class="action" data-title="Action">
+                  <div class="">
+                    <ul class="list-inline justify-content-center">
+                      <li class="list-inline-item">
+                        <a data-toggle="tooltip" data-placement="top" title="view" class="view"
+                           th:href="@{/announcements/viewAnnouncement/{id}(id=${announcement.id})}">
+                          <i class="fa fa-eye"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
+                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit"
+                           th:href="@{/announcements/edit/{id}(id=${announcement.id})}">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
+                        <a class="delete" data-toggle="tooltip" data-placement="top" title="Delete"
+                           th:href="@{/announcements/deleteAnnouncement/{id}(id=${announcement.id})}">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
 
 
-        <!-- pagination -->
+
+
+      <!-- pagination -->
 <!--        <div class="pagination justify-content-center">-->
 <!--          <nav aria-label="Page navigation example">-->
 <!--            <ul class="pagination">-->
@@ -239,26 +301,14 @@ Essential Scripts
 =====================================-->
 
 <script>
-  function rateProfile(profileId, rating) {
-    fetch(`/profiles/${profileId}/rate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': document.querySelector('meta[name="_csrf"]').getAttribute('content') // CSRF token pentru Spring Security
-      },
-      body: JSON.stringify({ rating: rating })
-    })
-            .then(response => response.json())
-            .then(data => {
-              // Actualizează interfața utilizatorului cu noul rating
-              document.querySelectorAll('.star').forEach(star => {
-                star.classList.toggle('filled', parseInt(star.getAttribute('data-index')) <= data.newRating);
-              });
-            })
-            .catch(error => console.error('Error:', error));
-  }
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = this.getAttribute('data-value');
+      document.getElementById('rating-value').value = rating;
+      document.getElementById('rating-form').submit(); // Trimite formularul la server
+    });
+  });
 </script>
-
 
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/popper.min.js}"></script>
