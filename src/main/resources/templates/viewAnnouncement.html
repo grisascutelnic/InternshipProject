@@ -205,11 +205,13 @@
 							 th:src="${announcement.profile.image != null} ? 'data:image/jpeg;base64,' + ${announcement.profile.base64Image} : @{/images/default-profile.jpg}"
 							 alt="Profile image">
 						<h4><a th:if="${announcement.profile != null}"
-							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}"></a></h4>
+							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}" style="font-size: 21px"></a></h4>
+
 						<a th:if="${announcement.profile != null}"
-						   th:href="@{/profile/{id}(id=${announcement.profile.id})}">Voir tous les annonces</a>
+						   th:href="@{/profile/{id}(id=${announcement.profile.id})}" style="font-size: 18px; color: #5672f9">Voir tous les annonces</a>
+
 						<ul class="list-inline mt-20">
-							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">Contact</a></li>
+							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-4 my-1 px-md-3">Contact</a></li>
 							<li class="list-inline-item"><a href="viewAnnouncement.html" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Calendrier</a></li>
 						</ul>
 					</div>
@@ -220,14 +222,14 @@
 						</div>
 					</div>-->
 					<!-- Rate Widget -->
-					<div class="widget rate">
-						<!-- Heading -->
+<!--					<div class="widget rate">
+						&lt;!&ndash; Heading &ndash;&gt;
 						<h5 class="widget-header text-center">What would you rate
 							<br>
 							this product</h5>
-						<!-- Rate -->
+						&lt;!&ndash; Rate &ndash;&gt;
 						<div class="starrr"></div>
-					</div>
+					</div>-->
 					<!-- Safety tips widget -->
 					<div class="widget disclaimer">
 						<h5 class="widget-header">Conseils de sécurité</h5>

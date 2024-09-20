@@ -211,3 +211,78 @@ function togglePriceField() {
 window.onload = function() {
   togglePriceField();
 };
+
+const stars = document.querySelectorAll('.star');
+const averageRatingText = document.getElementById('average-rating').innerText.trim();
+
+console.log('Textul mediu al ratingului:', averageRatingText);
+
+// Înlocuiește virgula cu punct
+const formattedRatingText = averageRatingText.replace(',', '.');
+const match = formattedRatingText.match(/(\d+\.\d+)/);
+
+if (match) {
+  console.log('Potrivire găsită:', match[1]);
+} else {
+  console.log('Nicio potrivire găsită');
+}
+
+const averageRating = match ? parseFloat(match[1]) : 0; // Verifică dacă a găsit o potrivire
+
+console.log('Ratingul mediu convertit:', averageRating);
+
+function fillStarsBasedOnAverage(rating) {
+  let totalFilledStars = 0;
+
+  if (rating >= 4.5) {
+    totalFilledStars = 5;
+  } else if (rating >= 3.5) {
+    totalFilledStars = 4;
+  } else if (rating >= 2.5) {
+    totalFilledStars = 3;
+  } else if (rating >= 1.5) {
+    totalFilledStars = 2;
+  } else if (rating >= 0.5) {
+    totalFilledStars = 1;
+  }
+
+  stars.forEach((star, index) => {
+    if (index < totalFilledStars) {
+      star.classList.add('filled');
+    } else {
+      star.classList.remove('filled');
+    }
+  });
+}
+
+fillStarsBasedOnAverage(averageRating);
+
+stars.forEach((star, index) => {
+  star.addEventListener('mouseover', () => {
+    fillStars(index);
+  });
+
+  star.addEventListener('mouseout', () => {
+    resetStars();
+  });
+
+  star.addEventListener('click', () => {
+    const rating = index + 1;
+    document.getElementById('rating-value').value = rating;
+    document.getElementById('rating-form').submit();
+  });
+});
+
+function fillStars(index) {
+  stars.forEach((star, i) => {
+    if (i <= index) {
+      star.classList.add('filled');
+    } else {
+      star.classList.remove('filled');
+    }
+  });
+}
+
+function resetStars() {
+  fillStarsBasedOnAverage(averageRating);
+}
