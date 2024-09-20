@@ -17,7 +17,7 @@ body {
 	border-bottom: 1px solid #e0e0e0;
 }
 
-p, li, input, select, button {
+p, li, input, select, button, a {
 	font-family: "Muli", sans-serif;
 	color: #666;
 	font-size: 14px;
@@ -2667,4 +2667,12 @@ form textarea {
 
 #price {
 	display: block;
+}
+
+.col-lg-9 {
+	background: #fff;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+	padding: 25px 30px 20px;
+	margin-bottom: 30px;
+	border-radius: 2px;
 }
