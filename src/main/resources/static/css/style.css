@@ -1855,9 +1855,31 @@ ul.pagination .active a {
 .widget.rate .starrr i {
 	font-size: 20px;
 	cursor: pointer;
-	color: #e6b322;
-	padding: 0 5px;
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
+	margin-right: 2px;
 }
+
+.widget.rate .starrr i:last-child {
+	margin-right: 0;
+}
+
+.widget.rate .starrr i.filled {
+	color: #e6b322; /* Culoarea aurie pentru stelele completate */
+}
+
+.widget.rate .starrr i.unfilled {
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
+}
+
+.star {
+	font-size: 24px;
+	color: #ddd; /* Culoarea steluțelor necolorate */
+}
+
+.star.filled {
+	color: #ffd700; /* Culoarea steluțelor colorate (auriu) */
+}
+
 
 .widget.filter {
 	padding-bottom: 17px;
@@ -1870,6 +1892,10 @@ ul.pagination .active a {
 .widget.filter .form-check-label {
 	font-size: 14px;
 	color: #848484;
+}
+
+.colored {
+	color: gold;
 }
 
 .widget.filter .form-check-label input {

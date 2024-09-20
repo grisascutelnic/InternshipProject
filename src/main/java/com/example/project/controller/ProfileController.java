@@ -29,6 +29,11 @@ public class ProfileController {
                               @PathVariable Long id,
                               Authentication auth,
                               Principal principal) {
+        if (auth == null) {
+            // Redirect or handle the unauthenticated user case
+            return "redirect:/login"; // sau un mesaj de eroare
+        }
+
         Profile profile = profileService.findById(id);
         if (profile == null) {
             model.addAttribute("error", "Profile not found for email: " + auth.getName());
@@ -74,4 +79,21 @@ public class ProfileController {
         profileService.updateProfile(id, editedProfile, imageFile, auth);
         return "redirect:/profile/" + id;
     }
+
+    @PostMapping("/rate/{id}")
+    public String rateProfile(@PathVariable Long id, @RequestParam("rating") int rating, Authentication auth) {
+        Profile profile = profileService.findById(id);
+        if (profile == null) {
+            return "redirect:/error";
+        }
+
+        // Actualizează totalul rating-urilor și numărul de rating-uri
+        profile.setTotalRating(profile.getTotalRating() + rating);
+        profile.setNumberOfRatings(profile.getNumberOfRatings() + 1);
+
+        profileService.save(profile); // Salvează modificările
+
+        return "redirect:/profile/" + id;
+    }
+
 }

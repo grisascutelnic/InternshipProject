@@ -30,15 +30,7 @@ import java.util.List;
         }
 
         @Override
-        public void saveFeedback(Feedback feedback, Authentication authentication) {
-            String username = authentication.getName();
-            Profile profile = profileService.getProfileByUsername(username);
-
-            // Setează profilul utilizatorului pentru feedback
-            if (profile != null) {
-                feedback.setProfile(profile);
-            }
-
+        public void saveFeedback(Feedback feedback) {
             feedbackRepository.save(feedback);
         }
 

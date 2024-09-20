@@ -63,14 +63,12 @@
 						</div>
 						<!-- User Name -->
 						<h5 class="text-center" th:object="${profile}" th:text="|${profile.firstName} ${profile.lastName}|"></h5>
+						<div class="d-flex justify-content-center">
+							<a th:href="@{'/profile/' + ${profileId}}" class="btn btn-main-sm">Revien au profil</a>
+						</div>
 					</div>
 					<!-- Dashboard Links -->
-          <div class="widget user-dashboard-menu">
-			  <a th:href="@{'/profile/' + ${profileId}}" class="btn btn-primary">
-				  Revino la profil
-			  </a>
 
-		  </div>
 				</div>
 			</div>
 			<div class="col-lg-8">
@@ -122,12 +120,6 @@
 								<div class="form-group">
 									<label for="phone">Phone</label>
 									<input type="text" class="form-control" id="phone" th:field="*{phone}" >
-								</div>
-
-								<!-- Address -->
-								<div class="form-group">
-									<label for="address">Address</label>
-									<input type="text" class="form-control" id="address" th:field="*{address}">
 								</div>
 
 								<!-- Submit button -->

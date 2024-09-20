@@ -17,4 +17,7 @@ public interface ProfileService {
 
     void updateProfile(Long id, Profile editedProfile, MultipartFile imageFile, Authentication auth);
 
+    Profile findProfileById(Long profileId);
+
+    void save(Profile profile);
 }

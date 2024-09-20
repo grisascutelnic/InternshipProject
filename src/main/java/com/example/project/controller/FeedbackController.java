@@ -5,6 +5,7 @@ import com.example.project.entity.Feedback;
 import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
 import com.example.project.service.FeedbackService;
+import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @Autowired
-    private AnnouncementService announcementService;
+    private ProfileService profileService;
 
 //    @GetMapping("/list")
 //    public String listFeedbacks(Model model) {
@@ -51,9 +52,19 @@ public class FeedbackController {
 
     @PostMapping("/saveFeedback")
     public String saveFeedback(@ModelAttribute("feedback") Feedback feedback,
-                               @RequestParam("announcementId") Long announcementId,
-                               Authentication authentication) {
-        feedbackService.saveFeedback(feedback, authentication);
+                               @RequestParam("profileId") Long profileId,
+                               @RequestParam("announcementId") Long announcementId) {
+
+        Profile profile = profileService.findProfileById(profileId);
+
+        if (profile != null) {
+            // Setează profilul în feedback
+            feedback.setProfile(profile);
+
+            // Salvează feedback-ul
+            feedbackService.saveFeedback(feedback);
+        }
+
         return "redirect:/announcements/viewAnnouncement/" + announcementId;
     }
 
