@@ -23,25 +23,20 @@ public class FeedbackController {
 
     @Autowired
     private ProfileService profileService;
-
-//    @GetMapping("/list")
-//    public String listFeedbacks(Model model) {
-//        List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
-//        model.addAttribute("feedbacks", feedbacks);
-//        return "viewAnnouncement";  // Pagina HTML pentru afișarea listei de feedback-uri
-//    }
+    @Autowired
+    private AnnouncementService announcementService;
 
     @GetMapping("/list")
     public String listFeedbacks(Model model) {
         List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
         model.addAttribute("feedbacks", feedbacks);
-        return "viewAnnouncement";  // Pagina HTML pentru afișarea listei de feedback-uri
+        return "viewAnnouncement";
     }
 
     @GetMapping("/createFeedback")
     public String showNewFeedbackForm(Model model) {
         model.addAttribute("feedback", new Feedback());
-        return "createFeedback";  // Formular HTML pentru adăugarea unui feedback nou
+        return "createFeedback";
     }
 
     @GetMapping("/new")
@@ -54,18 +49,18 @@ public class FeedbackController {
     public String saveFeedback(@ModelAttribute("feedback") Feedback feedback,
                                @RequestParam("profileId") Long profileId,
                                @RequestParam("announcementId") Long announcementId) {
-
         Profile profile = profileService.findProfileById(profileId);
+        Announcement announcement = announcementService.getAnnouncementById(announcementId);
 
         if (profile != null) {
-            // Setează profilul în feedback
             feedback.setProfile(profile);
-
-            // Salvează feedback-ul
+            feedback.setEmail(profile.getEmail());
+            feedback.setAnnouncement(announcement);
             feedbackService.saveFeedback(feedback);
         }
 
         return "redirect:/announcements/viewAnnouncement/" + announcementId;
     }
+
 
 }

@@ -38,4 +38,8 @@ public class Feedback {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "announcement_id")
+    private Announcement announcement;
+
 }
