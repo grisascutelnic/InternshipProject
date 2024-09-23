@@ -54,8 +54,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                     .orElseThrow(() -> new NotFoundException("Invalid tour id: " + updatedAnnouncement.getId()));
 
             announcement.setTitle(updatedAnnouncement.getTitle());
+            announcement.setType(updatedAnnouncement.getType());
             announcement.setPrice(updatedAnnouncement.getPrice());
             announcement.setDescription(updatedAnnouncement.getDescription());
+            announcement.setCategory(updatedAnnouncement.getCategory());
 
             if (!imageFile.isEmpty()) {
                 try {

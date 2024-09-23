@@ -220,7 +220,7 @@
                       </li>
                       <li class="list-inline-item" th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}">
                         <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit"
-                           th:href="@{/announcements/edit/{id}(id=${announcement.id})}">
+                           th:href="@{/announcements/editAnnouncement/{id}(id=${announcement.id})}">
                           <i class="fa fa-pencil"></i>
                         </a>
                       </li>

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/announcements")
@@ -49,13 +50,34 @@ public class AnnouncementController {
         return "redirect:/index";
     }
 
-    @PostMapping("/updateAnnouncement")
-    public String updateTour(@ModelAttribute Announcement announcement,
-                             @RequestParam("imageFile") MultipartFile imageFile) {
+    @GetMapping("/editAnnouncement/{id}")
+    public String showEditAnnouncement(@PathVariable("id") Long id, Model model,
+                                       Authentication auth) {
+        Announcement announcement = announcementService.getAnnouncementById(id);
 
-        announcementService.updateAnnouncement(announcement, imageFile);
-        return "redirect:/index";
+        if (auth == null || auth.getName() == null) {
+            return "redirect:/login"; // sau orice altă pagină de redirecționare
+        }
+
+        String email = auth.getName();
+        Profile profile = profileService.findByEmail(email);
+
+        if (announcement.getProfile().getId().equals(profile.getId())) {
+            model.addAttribute("announcement", announcement);
+            return "editAnnouncement";
+        } else {
+            return "redirect:/access-denied";
+        }
     }
+
+    @PostMapping("/updateAnnouncement")
+    public String updateAnnouncement(@ModelAttribute Announcement announcement,
+                                     @RequestParam("imageFile") MultipartFile imageFile) {
+                announcementService.updateAnnouncement(announcement, imageFile);
+            return "redirect:/index";
+    }
+
+
 
     @DeleteMapping("/deleteAnnouncement/{id}")
     public String deleteAnnouncement(@RequestParam("id") Long id) {
@@ -88,19 +110,6 @@ public class AnnouncementController {
         }
     }
 
-
-//    @GetMapping("/viewAnnouncement/{id}")
-//    public String viewAnnouncement(@PathVariable("id") Long id, Model model) {
-//        Announcement announcement = announcementService.getAnnouncementById(id);
-//        if (announcement != null) {
-//            List<Feedback> feedbacks = feedbackService.getAllFeedbacks(); // Obține feedback-uri
-//            model.addAttribute("announcement", announcement);
-//            model.addAttribute("feedbacks", feedbacks); // Adaugă feedback-uri în model
-//            return "viewAnnouncement"; // Numele fișierului HTML
-//        } else {
-//            return "redirect:/viewAnnouncement?error"; // Redirecționează dacă anunțul nu este găsit
-//        }
-//    }
 
 
     @GetMapping("/allAnnouncements")
