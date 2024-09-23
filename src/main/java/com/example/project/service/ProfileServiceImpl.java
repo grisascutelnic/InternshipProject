@@ -36,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void updateProfile(Profile editedProfile, MultipartFile imageFile, Authentication auth) {
+    public void updateProfile(Long Id, Profile editedProfile, MultipartFile imageFile, Authentication auth) {
         try {
             Profile profile = profileRepository.findByEmail(auth.getName());
             profile.setFirstName(editedProfile.getFirstName());
@@ -61,4 +61,21 @@ public class ProfileServiceImpl implements ProfileService {
             throw new InternalServerErrorException("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public Profile findProfileById(Long profileId) {
+        return profileRepository.findById(profileId).orElse(null);
+    }
+
+    @Override
+    public Profile getProfileByUsername(String email) {
+        // Caută profilul asociat utilizatorului pe baza username-ului (email-ului sau alt identificator unic)
+        return profileRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Profile not found for username: " + email));
+    }
+
+    public void save(Profile profile) {
+        profileRepository.save(profile);
+    }
+
 }

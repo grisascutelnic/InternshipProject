@@ -17,7 +17,7 @@ body {
 	border-bottom: 1px solid #e0e0e0;
 }
 
-p, li, input, select, button {
+p, li, input, select, button, a {
 	font-family: "Muli", sans-serif;
 	color: #666;
 	font-size: 14px;
@@ -52,6 +52,13 @@ h4 {
 
 p {
 	color: #888;
+}
+
+.profile-image {
+	width: 100px; /* Setează dimensiunea dorită a imaginii */
+	height: 100px; /* Asigură că lățimea și înălțimea sunt egale pentru a face cercul perfect */
+	object-fit: cover; /* Asigură că imaginea se adaptează la dimensiunea containerului */
+	border-radius: 50%; /* Creează efectul de cerc */
 }
 
 label {
@@ -1848,9 +1855,31 @@ ul.pagination .active a {
 .widget.rate .starrr i {
 	font-size: 20px;
 	cursor: pointer;
-	color: #e6b322;
-	padding: 0 5px;
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
+	margin-right: 2px;
 }
+
+.widget.rate .starrr i:last-child {
+	margin-right: 0;
+}
+
+.widget.rate .starrr i.filled {
+	color: #e6b322; /* Culoarea aurie pentru stelele completate */
+}
+
+.widget.rate .starrr i.unfilled {
+	color: #d3d3d3; /* Culoarea gri pentru stelele necompletate */
+}
+
+.star {
+	font-size: 24px;
+	color: #ddd; /* Culoarea steluțelor necolorate */
+}
+
+.star.filled {
+	color: #ffd700; /* Culoarea steluțelor colorate (auriu) */
+}
+
 
 .widget.filter {
 	padding-bottom: 17px;
@@ -1863,6 +1892,10 @@ ul.pagination .active a {
 .widget.filter .form-check-label {
 	font-size: 14px;
 	color: #848484;
+}
+
+.colored {
+	color: gold;
 }
 
 .widget.filter .form-check-label input {
@@ -2630,4 +2663,16 @@ form textarea {
 .btn-custom {
 	background-color: #47acf4;
 	color: #fff;
+}
+
+#price {
+	display: block;
+}
+
+.col-lg-9 {
+	background: #fff;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+	padding: 25px 30px 20px;
+	margin-bottom: 30px;
+	border-radius: 2px;
 }

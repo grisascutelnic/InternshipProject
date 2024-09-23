@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers("/index", "/error").permitAll()
                                 .requestMatchers("/register/**").not().authenticated()
                                 .requestMatchers("/login/**", "/announcements/**", "/profile/**", "/viewAnnouncement/**",
-                                        "/feedbacks/**", "/allAnnouncements/**", "/loginSuccess/**").permitAll()
+                                        "/feedbacks/**", "/allAnnouncements/**", "/loginSuccess/**", "/change-password/**", "/delete-account/**").permitAll()
 //                                .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form

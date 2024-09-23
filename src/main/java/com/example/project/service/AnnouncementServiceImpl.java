@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,7 +38,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             e.printStackTrace();
             throw new RuntimeException("Failed to upload image", e); // Add more specific error handling if needed
         }
-
+        announcement.setDate(new Date());
         announcementRepository.save(announcement);
     }
 
@@ -52,9 +54,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                     .orElseThrow(() -> new NotFoundException("Invalid tour id: " + updatedAnnouncement.getId()));
 
             announcement.setTitle(updatedAnnouncement.getTitle());
+            announcement.setType(updatedAnnouncement.getType());
             announcement.setPrice(updatedAnnouncement.getPrice());
             announcement.setDescription(updatedAnnouncement.getDescription());
-            announcement.setNumber(announcement.getNumber());
+            announcement.setCategory(updatedAnnouncement.getCategory());
 
             if (!imageFile.isEmpty()) {
                 try {
@@ -75,5 +78,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public Announcement getAnnouncementById(Long id) {
         return announcementRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Announcement not found with id: " + id));
+    }
+
+    @Override
+    public List<Announcement> findByProfileId(Long profileId) {
+        return announcementRepository.findByProfileId(profileId);
     }
 }

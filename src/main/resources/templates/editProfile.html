@@ -57,39 +57,41 @@
 					<div class="widget user">
 						<!-- User Image -->
 						<div class="image d-flex justify-content-center">
-							<img src="/images/user/user-thumb.jpg" alt="" class="">
+<!--							<img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="Profile Image" class="profile-image rounded-circle">-->
+							<img th:src="${profile.image != null} ? 'data:image/jpeg;base64,' + ${profile.base64Image} : @{/images/default-profile.jpg}"
+								 alt="Profile Image" class="profile-image rounded-circle">
 						</div>
 						<!-- User Name -->
 						<h5 class="text-center" th:object="${profile}" th:text="|${profile.firstName} ${profile.lastName}|"></h5>
+						<div class="d-flex justify-content-center">
+							<a th:href="@{'/profile/' + ${profileId}}" class="btn btn-main-sm">Revien au profil</a>
+						</div>
 					</div>
 					<!-- Dashboard Links -->
-          <div class="widget user-dashboard-menu">
-            <ul>
-              <li><a href="index.html">Savings Dashboard</a></li>
-              <li><a href="index.html">Saved Offer <span>(5)</span></a></li>
-              <li><a href="index.html">Favourite Stores <span>(3)</span></a></li>
-              <li><a href="index.html">Recommended</a></li>
-            </ul>
-          </div>
+
 				</div>
 			</div>
 			<div class="col-lg-8">
 				<!-- Edit Profile Welcome Text -->
 				<div class="widget welcome-message">
 					<h2>Edit profile</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+<!--					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>-->
 				</div>
 				<!-- Edit Personal Info -->
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="widget personal-info">
 							<h3 class="widget-header user">Edit Personal Information</h3>
-							<form th:action="@{/profile/updateProfile}" method="post" th:object="${profile}" enctype="multipart/form-data">
+							<form th:action="@{/profile/updateProfile/{id}(id=${profile.id})}" method="post" th:object="${profile}" enctype="multipart/form-data">
+								<!-- ID hidden field -->
+								<input type="hidden" name="id" th:value="${profile.id}">
+
 								<!-- First Name -->
 								<div class="form-group">
 									<label for="first-name">First Name</label>
 									<input type="text" class="form-control" id="first-name" th:field="*{firstName}">
 								</div>
+
 								<!-- Last Name -->
 								<div class="form-group">
 									<label for="last-name">Last Name</label>
@@ -120,15 +122,10 @@
 									<input type="text" class="form-control" id="phone" th:field="*{phone}" >
 								</div>
 
-								<!-- Address -->
-								<div class="form-group">
-									<label for="address">Address</label>
-									<input type="text" class="form-control" id="address" th:field="*{address}">
-								</div>
-
 								<!-- Submit button -->
 								<button class="btn btn-transparent">Save My Changes</button>
 							</form>
+
 
 						</div>
 					</div>
@@ -136,46 +133,55 @@
 						<!-- Change Password -->
 					<div class="widget change-password">
 						<h3 class="widget-header user">Edit Password</h3>
-						<form action="#">
-							<!-- Current Password -->
-							<div class="form-group">
-								<label for="current-password">Current Password</label>
-								<input type="password" class="form-control" id="current-password">
+						<div>
+							<div>
+								<h2>Change Password</h2>
+								<form th:action="@{/change-password}" method="POST">
+									<div class="form-group">
+										<label for="current-password">Current Password</label>
+										<input type="password" class="form-control" id="current-password" name="currentPassword" required>
+									</div>
+									<div class="form-group">
+										<label for="new-password">New Password</label>
+										<input type="password" class="form-control" id="new-password" name="newPassword" required>
+									</div>
+									<div class="form-group">
+										<label for="confirm-password">Confirm New Password</label>
+										<input type="password" class="form-control" id="confirm-password" name="confirmPassword" required>
+									</div>
+									<button type="submit" class="btn btn-transparent">Change Password</button>
+								</form>
+
+								<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+								<p th:if="${success}" th:text="${success}" style="color: green;"></p>
 							</div>
-							<!-- New Password -->
-							<div class="form-group">
-								<label for="new-password">New Password</label>
-								<input type="password" class="form-control" id="new-password">
-							</div>
-							<!-- Confirm New Password -->
-							<div class="form-group">
-								<label for="confirm-password">Confirm New Password</label>
-								<input type="password" class="form-control" id="confirm-password">
-							</div>
-							<!-- Submit Button -->
-							<button class="btn btn-transparent">Change Password</button>
-						</form>
+
+
+							<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+							<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+						</div>
+
 					</div>
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<!-- Change Email Address -->
-					<div class="widget change-email mb-0">
-						<h3 class="widget-header user">Edit Email Address</h3>
-						<form action="#">
-							<!-- Current Password -->
-							<div class="form-group">
-								<label for="current-email">Current Email</label>
-								<input type="email" class="form-control" id="current-email">
-							</div>
-							<!-- New email -->
-							<div class="form-group">
-								<label for="new-email">New email</label>
-								<input type="email" class="form-control" id="new-email">
-							</div>
-							<!-- Submit Button -->
-							<button class="btn btn-transparent">Change email</button>
-						</form>
-					</div>
+<!--					<div class="widget change-email mb-0">-->
+<!--						<h3 class="widget-header user">Edit Email Address</h3>-->
+<!--						<form action="#">-->
+<!--							&lt;!&ndash; Current Password &ndash;&gt;-->
+<!--							<div class="form-group">-->
+<!--								<label for="current-email">Current Email</label>-->
+<!--								<input type="email" class="form-control" id="current-email">-->
+<!--							</div>-->
+<!--							&lt;!&ndash; New email &ndash;&gt;-->
+<!--							<div class="form-group">-->
+<!--								<label for="new-email">New email</label>-->
+<!--								<input type="email" class="form-control" id="new-email">-->
+<!--							</div>-->
+<!--							&lt;!&ndash; Submit Button &ndash;&gt;-->
+<!--							<button class="btn btn-transparent">Change email</button>-->
+<!--						</form>-->
+<!--					</div>-->
 					</div>
 				</div>
 			</div>

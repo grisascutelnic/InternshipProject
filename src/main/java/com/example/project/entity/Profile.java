@@ -51,12 +51,38 @@ public class Profile {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "rating")
-    private int rating;
-
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
+
+    @Column(name = "total_rating")
+    private int totalRating = 0;
+
+    @Column(name = "number_of_ratings")
+    private int numberOfRatings = 0;
+
+    @ElementCollection
+    @CollectionTable(name = "rated_by_emails", joinColumns = @JoinColumn(name = "profile_id"))
+    @Column(name = "email")
+    private List<String> ratedByEmails = new ArrayList<>();
+
+    public void addRater(String email) {
+        if (!ratedByEmails.contains(email)) {
+            ratedByEmails.add(email);
+        }
+    }
+
+    public boolean hasRated(String email) {
+        return ratedByEmails.contains(email);
+    }
+
+    // Metodă pentru calcularea mediei rating-urilor
+    public double getAverageRating() {
+        if (numberOfRatings == 0) {
+            return 0;
+        }
+        return (double) totalRating / numberOfRatings;
+    }
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -64,6 +90,9 @@ public class Profile {
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<Announcement> announcements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "profile")
+    private List<Feedback> feedbacks;
 
     public String getBase64Image() {
         if (this.image != null) {

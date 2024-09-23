@@ -1,12 +1,14 @@
 package com.example.project.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Base64;
+import java.util.Date;
 
 import static java.util.Base64.getDecoder;
 
@@ -29,14 +31,18 @@ public class Announcement {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "number")
-    private String number;
-
+    @Size(max = 1000)
     @Column(name = "description")
     private String description;
 
-    @Column(name = "date")
-    private String date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    @Column(name = "category")
+    private String category;
+
+    @Column(name = "type")
+    private String type;
 
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")

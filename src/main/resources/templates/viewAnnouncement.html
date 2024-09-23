@@ -87,8 +87,7 @@
 							<li class="list-inline-item"><i class="fa fa-user-o"></i> By
 								<a th:if="${announcement.profile != null}"
 								   th:text="${announcement.profile.firstName}"></a></li>
-							<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category<!--<a th:text="${announcement.category}"></a>--></li>
-							<li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location<!--<a th:text="${announcement.location}"></a>--></li>
+							<li class="list-inline-item"><i class="fa fa-folder-open-o"></i><a th:text="${announcement.category}"></a></li>
 						</ul>
 					</div>
 
@@ -104,62 +103,70 @@
 						<ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
-								 aria-selected="true">Product Details</a>
+								 aria-selected="true">Détails du Produit</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact"
-								 aria-selected="false">Reviews</a>
+								 aria-selected="false">Feedback</a>
 							</li>
 						</ul>
 						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-								<h3 class="tab-title">Product Description</h3>
+								<h3 class="tab-title">Description du Produit</h3>
 								<p th:text="${announcement.description}"></p>
 							</div>
 							<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-								<h3 class="tab-title">Product Review</h3>
+								<h3 class="tab-title">Feedback sur le Produit</h3>
 								<div class="product-review">
 
 
-									<div class="media" th:each="feed : ${feedbacks}">
-										<!-- Avater -->
-										<img src="images/user/user-thumb.jpg" alt="avater">
-										<div class="media-body">
-											<!-- Ratings -->
-											<div class="ratings">
-												<ul class="list-inline">
-													<li class="list-inline-item">
-														<i class="fa fa-star"></i>
-													</li>
-													<li class="list-inline-item">
-														<i class="fa fa-star"></i>
-													</li>
-													<li class="list-inline-item">
-														<i class="fa fa-star"></i>
-													</li>
-													<li class="list-inline-item">
-														<i class="fa fa-star"></i>
-													</li>
-													<li class="list-inline-item">
-														<i class="fa fa-star"></i>
-													</li>
-												</ul>
-											</div>
-											<div class="name">
-												<h5 th:text="${feed.name}"></h5>
-											</div>
-											<div class="date">
-												<p th:text="${feed.email}"></p>
-											</div>
-											<div class="review-comment">
-												<p>
-													Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremqe laudant tota rem ape
-													riamipsa eaque.
-												</p>
+									<div class="product-review">
+										<div class="media" th:each="feed : ${feedbacks}">
+											<!-- Avater -->
+
+											<img th:if="${feed.profile != null && feed.profile.base64Image != null}"
+												 th:src="'data:image/jpeg;base64,' + ${feed.profile.base64Image}"
+												 alt="avatar"/>
+
+											<img th:if="${feed.profile == null || feed.profile.base64Image == null}"
+												 th:src="@{/images/default-profile.jpg}"
+												 alt="avatar"/>
+
+											<div class="media-body">
+												<!-- Ratings -->
+												<div class="ratings">
+													<ul class="list-inline">
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+														<li class="list-inline-item">
+															<i class="fa fa-star"></i>
+														</li>
+													</ul>
+												</div>
+
+												<div class="name">
+													<h5 th:text="${feed.profile != null ? feed.profile.firstName + ' ' + feed.profile.lastName : 'N/A'}"></h5>
+												</div>
+												<div class="date">
+													<p th:text="${feed.email}"></p>
+												</div>
+												<div class="review-comment">
+													<p th:text="${feed.message}"></p>
+												</div>
+
 											</div>
 										</div>
 									</div>
-
 
 									<div class="review-submission">
 										<h3 class="tab-title">Submit your review</h3>
@@ -169,13 +176,18 @@
 										</div>
 										<div class="review-submit">
 											<form th:action="@{/feedbacks/saveFeedback}" th:object="${feedback}" method="post" class="row">
-												<div class="col-lg-6 mb-3">
-													<label for="name">Name</label>
-													<input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}">
-												</div>
-												<div class="col-lg-6 mb-3">
-													<input type="email" class="form-control" placeholder="Email" th:field="*{email}">
-												</div>
+<!--												<input type="hidden" th:name="${announcementId}" th:value="${announcementId}" />-->
+												<input type="hidden" th:name="announcementId" th:value="${announcement.id}" />
+												<div th:if="${profile != null}"><input type="hidden" th:name="profileId" th:value="${profile.id}" /></div>
+
+
+<!--												<div class="col-lg-6 mb-3">-->
+<!--													<label for="name">Name</label>-->
+<!--													<input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}">-->
+<!--												</div>-->
+<!--												<div class="col-lg-6 mb-3">-->
+<!--													<input type="email" class="form-control" placeholder="Email" th:field="*{email}">-->
+<!--												</div>-->
 												<div class="col-12 mb-3">
 													<textarea rows="6" class="form-control" placeholder="Message" th:field="*{message}"></textarea>
 												</div>
@@ -198,13 +210,17 @@
 					</div>
 					<!-- User Profile widget -->
 					<div class="widget user text-center">
-						<img class="rounded-circle img-fluid mb-4 px-4" th:src="@{/images/user/user-thumb.jpg}" alt="Profile image">
+						<img class="rounded-circle img-fluid mb-4 px-4"
+							 th:src="${announcement.profile.image != null} ? 'data:image/jpeg;base64,' + ${announcement.profile.base64Image} : @{/images/default-profile.jpg}"
+							 alt="Profile image">
 						<h4><a th:if="${announcement.profile != null}"
-							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}"></a></h4>
+							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}" style="font-size: 21px"></a></h4>
+
 						<a th:if="${announcement.profile != null}"
-						   th:href="@{/profile/{id}(id=${announcement.profile.id})}">Voir tous les annonces</a>
+						   th:href="@{/profile/{id}(id=${announcement.profile.id})}" style="font-size: 18px; color: #5672f9">Voir tous les annonces</a>
+
 						<ul class="list-inline mt-20">
-							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-5 my-1 px-md-3">Contact</a></li>
+							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-4 my-1 px-md-3">Contact</a></li>
 							<li class="list-inline-item"><a href="viewAnnouncement.html" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Calendrier</a></li>
 						</ul>
 					</div>
@@ -215,14 +231,14 @@
 						</div>
 					</div>-->
 					<!-- Rate Widget -->
-					<div class="widget rate">
-						<!-- Heading -->
+<!--					<div class="widget rate">
+						&lt;!&ndash; Heading &ndash;&gt;
 						<h5 class="widget-header text-center">What would you rate
 							<br>
 							this product</h5>
-						<!-- Rate -->
+						&lt;!&ndash; Rate &ndash;&gt;
 						<div class="starrr"></div>
-					</div>
+					</div>-->
 					<!-- Safety tips widget -->
 					<div class="widget disclaimer">
 						<h5 class="widget-header">Conseils de sécurité</h5>
