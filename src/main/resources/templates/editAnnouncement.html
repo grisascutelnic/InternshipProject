@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>editAnnonce</title>
+  <!-- ** Mobile Specific Metas ** -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Agency HTML Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
+
+  <!-- favicon -->
+  <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+
+  <!--
+  Essential stylesheets
+  =====================================-->
+  <link th:href="@{/plugins/bootstrap/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/plugins/bootstrap/bootstrap-slider.css}" rel="stylesheet">
+  <link th:href="@{/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+  <link th:href="@{/plugins/slick/slick.css}" rel="stylesheet">
+  <link th:href="@{/plugins/slick/slick-theme.css}" rel="stylesheet">
+  <link th:href="@{/plugins/jquery-nice-select/css/nice-select.css}" rel="stylesheet">
+
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+<body class="body-wrapper">
+
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+
+<section class="advt-post bg-gray py-5">
+  <div class="container">
+    <form th:action="@{/announcements/updateAnnouncement}" method="POST" th:object="${announcement}"   enctype="multipart/form-data">
+      <!-- Post Your ad start -->
+      <div class="form-group">
+        <input type="hidden" th:field="*{id}" />
+      </div>
+      <fieldset class="border border-gary px-3 px-md-4 py-4 mb-5">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3>Publiez votre annonce</h3>
+          </div>
+          <div class="col-lg-6">
+            <h6 class="font-weight-bold pt-4 pb-1">Titre de l'annonce:</h6>
+            <input type="text" class="form-control bg-white" placeholder="Le titre de l'annonce va ici" th:field="*{title}" required>
+            <h6 class="font-weight-bold pt-4 pb-1">Le type d'offre de services:</h6>
+            <div class="row px-3">
+              <div class="col-lg-4 mr-lg-4 my-2 pt-2 pb-1 rounded bg-white">
+                <input type="radio" th:field="*{type}" value="personal" id="personal" required>
+                <label for="personal" class="py-2">J'offre</label>
+              </div>
+              <div class="col-lg-4 mr-lg-4 my-2 pt-2 pb-1 rounded bg-white">
+                <input type="radio" th:field="*{type}" value="business" id="business" required>
+                <label for="business" class="py-2">Je recherche</label>
+              </div>
+            </div>
+            <h6 class="font-weight-bold pt-4 pb-1">Description:</h6>
+            <textarea name="" id="" class="form-control bg-white" rows="7"
+                      placeholder="Rédigez les détails concernant votre service" th:field="*{description}" required></textarea>
+          </div>
+          <div class="col-lg-6">
+            <h6 class="font-weight-bold pt-4 pb-1">Sélectionnez la catégorie de l'annonce:</h6>
+            <select name="" class="form-control w-100 bg-white" id="inputGroupSelect" th:field="*{category}">
+              <option value="1">Sélectionnez une catégorie</option>
+              <option value="Électroniques" th:selected="${announcement.category == 'Électroniques'}">Électroniques</option>
+              <option value="Domestiques" th:selected="${announcement.category == 'Domestiques'}">Domestiques</option>
+              <option value="Automobiles" th:selected="${announcement.category == 'Automobiles'}">Automobiles</option>
+<!--              <option value="Mobilier">Mobilier</option>-->
+<!--              <option value="Jardinage">Jardinage</option>-->
+<!--              <option value="Sport et Loisirs">Sport et Loisirs</option>-->
+<!--              <option value="Matériel de Bureau">Matériel de Bureau</option>-->
+<!--              <option value="Systèmes de Sécurité">Systèmes de Sécurité</option>-->
+            </select>
+            <div class="price">
+              <h6 class="font-weight-bold pt-4 pb-1">Prix (en EUR):</h6>
+              <div class="row px-3">
+                <div class="col-lg-4 rounded my-2 px-0">
+                  <input type="text" class="form-control bg-white" placeholder="Prix" id="price" th:field="*{price}">
+                </div>
+                <div class="col-lg-4 ml-lg-4 my-2 pt-2 pb-1 rounded bg-white">
+                  <input type="checkbox" name="negotiable" value="true" id="negotiableCheckbox" onclick="togglePriceField()">
+                  <label for="negotiableCheckbox" class="py-2">Négociable</label>
+                </div>
+              </div>
+            </div>
+            <h6 class="font-weight-bold pt-4 pb-1">Images:</h6>
+            <div class="choose-file text-center py-4 rounded bg-white">
+              <label for="file-upload">
+                <span class="d-block font-weight-bold text-dark">Déposez les fichiers ici pour les télécharger</span>
+                <span class="d-block">ou</span>
+                <span class="d-block btn bg-primary text-white my-3 select-files" th:field="*{image}">Sélectionnez des fichiers</span>
+                <span class="d-block">Taille maximale des fichiers à télécharger : 500 Ko</span>
+                <input type="file" class="form-control-file d-none" id="file-upload" name="imageFile">
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- Post Your ad end -->
+      <!-- submit button -->
+      <div class="checkbox">
+        <input type="checkbox" id="terms-&-condition" class="mt-1">
+        <label class=".my-5" for="terms-&-condition">En cliquant, vous devez accepter nos
+          <span> <a class="text-success" href="terms-condition.html">Conditions générales et règles de publication.</a></span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary d-block mt-2">Change votre annonce</button>
+    </form>
+  </div>
+</section>
+
+<div th:replace="~{/fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -92,9 +92,16 @@ public class ProfileController {
         String formattedRating = df.format(profile.getAverageRating());
         model.addAttribute("formattedRating", formattedRating);
 
+        String userEmail = auth.getName(); // Obține email-ul utilizatorului autentic
+        if (profile.hasRated(userEmail)) {
+            model.addAttribute("error", "You have already rated this profile.");
+            return "redirect:/profile/" + id;
+        }
+
         // Actualizează totalul rating-urilor și numărul de rating-uri
         profile.setTotalRating(profile.getTotalRating() + rating);
         profile.setNumberOfRatings(profile.getNumberOfRatings() + 1);
+        profile.addRater(userEmail);
 
         profileService.save(profile); // Salvează modificările
 
