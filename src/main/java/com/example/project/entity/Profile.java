@@ -59,7 +59,22 @@ public class Profile {
     private int totalRating = 0;
 
     @Column(name = "number_of_ratings")
-    private int numberOfRatings = 1;
+    private int numberOfRatings = 0;
+
+    @ElementCollection
+    @CollectionTable(name = "rated_by_emails", joinColumns = @JoinColumn(name = "profile_id"))
+    @Column(name = "email")
+    private List<String> ratedByEmails = new ArrayList<>();
+
+    public void addRater(String email) {
+        if (!ratedByEmails.contains(email)) {
+            ratedByEmails.add(email);
+        }
+    }
+
+    public boolean hasRated(String email) {
+        return ratedByEmails.contains(email);
+    }
 
     // Metodă pentru calcularea mediei rating-urilor
     public double getAverageRating() {
