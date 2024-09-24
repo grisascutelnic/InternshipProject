@@ -18,4 +18,6 @@ public interface AnnouncementService {
     Announcement getAnnouncementById(Long id);
 
     List<Announcement> findByProfileId(Long profileId);
+
+
 }
