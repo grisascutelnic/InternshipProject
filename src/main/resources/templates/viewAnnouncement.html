@@ -209,20 +209,48 @@
 						<h4 th:text="'€ ' + ${announcement.price}"></h4>
 					</div>
 					<!-- User Profile widget -->
-					<div class="widget user text-center">
-						<img class="rounded-circle img-fluid mb-4 px-4"
-							 th:src="${announcement.profile.image != null} ? 'data:image/jpeg;base64,' + ${announcement.profile.base64Image} : @{/images/default-profile.jpg}"
-							 alt="Profile image">
-						<h4><a th:if="${announcement.profile != null}"
-							   th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}" style="font-size: 21px"></a></h4>
+					<div class="widget user-dashboard-profile">
+						<!-- User Image -->
+						<div class="image d-flex justify-content-center">
+							<img th:src="${announcement.profile.image != null} ? 'data:image/jpeg;base64,' + ${announcement.profile.base64Image} : @{/images/default-profile.jpg}"
+								 alt="Profile Image" class="profile-image rounded-circle">
+						</div>
+						<!-- User Name -->
+						<h5 class="text-center mt-3" th:text="${announcement.profile.firstName} + ' ' + ${announcement.profile.lastName}"></h5>
+						<p class="text-center text-muted mb-1" th:text="'Enregistré le ' + ${#dates.format(announcement.profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
 
-						<a th:if="${announcement.profile != null}"
-						   th:href="@{/profile/{id}(id=${announcement.profile.id})}" style="font-size: 18px; color: #5672f9">Voir tous les annonces</a>
+						<!-- Phone Number -->
+						<p class="text-center text-muted mb-1" th:if="${announcement.profile.email!= null && announcement.profile.phone != null}">
+							<i class="fa fa-phone"></i> <span th:text="${announcement.profile.phone}"></span>
+						</p>
 
-						<ul class="list-inline mt-20">
-							<li class="list-inline-item"><a href="contact-us.html" class="btn btn-contact d-inline-block  btn-primary px-lg-4 my-1 px-md-3">Contact</a></li>
-							<li class="list-inline-item"><a href="viewAnnouncement.html" class="btn btn-offer d-inline-block btn-primary ml-n1 my-1 px-lg-4 px-md-3">Calendrier</a></li>
-						</ul>
+						<!-- Location -->
+						<p class="text-center text-muted mb-3" th:if="${announcement.profile.email != null && announcement.profile.location != null}">
+							<i class="fa fa-map-marker"></i> <span th:text="${announcement.profile.location}"></span>
+						</p>
+
+
+						<div>
+							<!-- Afișează media rating-urilor -->
+							<p class="text-center text-muted mb-1" id="average-rating" th:text="'Rating ' + ${T(java.lang.String).format('%.1f', announcement.profile.averageRating)}"></p>
+
+							<!-- Sistemul de rating -->
+							<div id="rating-stars">
+								<span class="star" data-value="1">&#9733;</span>
+								<span class="star" data-value="2">&#9733;</span>
+								<span class="star" data-value="3">&#9733;</span>
+								<span class="star" data-value="4">&#9733;</span>
+								<span class="star" data-value="5">&#9733;</span>
+							</div>
+
+							<form id="rating-form" th:action="@{'/profile/rate/' + ${announcement.profile.id}}" method="post">
+								<input type="hidden" name="rating" id="rating-value">
+							</form>
+						</div>
+						<!-- Announcements button -->
+						<a th:href="@{'/profile/' + ${announcement.profile.id}}" class="btn btn-main-sm">Annonces</a>
+						<!-- Events button -->
+						<a th:href="@{'/profile/' + ${announcement.profile.id} + '/events'}" class="btn btn-main-sm">Événements</a>
 					</div>
 					<!-- Map Widget -->
 					<!--<div class="widget map">
@@ -281,5 +309,11 @@ Essential Scripts
 <script th:src="@{/js/script.js}"></script>
 
 </body>
+
+<style>
+	#rating-stars span {
+		pointer-events: none;
+	}
+</style>
 
 </html>

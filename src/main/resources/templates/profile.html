@@ -103,6 +103,8 @@
 
             <!-- Edit Profile Button -->
             <a th:if="${authenticatedEmail != null && profile.email == authenticatedEmail}" th:href="@{/profile/editProfile/{id}(id=${profile.id})}" class="btn btn-main-sm">Modifier le profil</a>
+            <!-- Events button -->
+            <a th:href="@{'/profile/' + ${profile.id} + '/events'}" class="btn btn-main-sm">Événements</a>
           </div>
 
             <!-- Dashboard Links -->

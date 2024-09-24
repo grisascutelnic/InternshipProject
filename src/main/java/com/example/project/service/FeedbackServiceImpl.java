@@ -19,6 +19,11 @@ import java.util.List;
         private ProfileService profileService;
 
         @Override
+        public List<Feedback> getFeedbacksByAnnouncementId(Long announcementId) {
+            return feedbackRepository.findByAnnouncementId(announcementId);
+        }
+
+        @Override
         public List<Feedback> getAllFeedbacks() {
             return feedbackRepository.findAll();
         }

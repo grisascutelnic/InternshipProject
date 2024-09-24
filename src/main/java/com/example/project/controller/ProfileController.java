@@ -1,11 +1,12 @@
 package com.example.project.controller;
 
 import com.example.project.entity.Announcement;
+import com.example.project.entity.Event;
 import com.example.project.entity.Profile;
 import com.example.project.service.AnnouncementService;
+import com.example.project.service.EventService;
 import com.example.project.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class ProfileController {
 
     @Autowired
     private AnnouncementService announcementService;
+
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("/{id}")
     public String showProfile(Model model,
@@ -108,4 +112,33 @@ public class ProfileController {
         return "redirect:/profile/" + id;
     }
 
+    @GetMapping("/{id}/events")
+    public String showCalendar(@PathVariable Long id, Model model, Principal principal) {
+        Profile profile = profileService.findById(id);
+        List<Event> events = eventService.getEventsForProfile(profile);
+        model.addAttribute("profile", profile);
+        model.addAttribute("events", events);
+
+        if (principal != null) {
+            String authenticatedEmail = principal.getName();
+            model.addAttribute("authenticatedEmail", authenticatedEmail);
+        }
+        return "events";
+    }
+
+
+    @PostMapping("/{id}/events/add")
+    public String addEvent(@PathVariable Long id, @ModelAttribute Event event) {
+        Profile profile = profileService.findById(id);
+        event.setProfile(profile);
+        event.setStatus("Pending");
+        eventService.addEvent(event);
+        return "redirect:/profile/" + id + "events";
+    }
+
+    @PostMapping("/{id}/events/{eventId}/updateStatus")
+    public String updateEventStatus(@PathVariable Long id, @PathVariable Long eventId, @RequestParam String status) {
+        eventService.updateEventStatus(eventId, status);
+        return "redirect:/profile/" + id + "/events";
+    }
 }
