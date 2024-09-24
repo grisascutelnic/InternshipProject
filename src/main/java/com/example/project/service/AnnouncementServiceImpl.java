@@ -23,6 +23,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     private AnnouncementRepository announcementRepository;
 
     @Override
+    public List<Announcement> getAnnouncementsSortedByRating() {//new
+        return announcementRepository.findAllOrderByProfileAverageRatingDesc();
+    }
+
+    @Override
     public List<Announcement> getAllAnnouncements() {
         return announcementRepository.findAll();
     }

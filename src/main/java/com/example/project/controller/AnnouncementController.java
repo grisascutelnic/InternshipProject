@@ -117,7 +117,8 @@ public class AnnouncementController {
     @GetMapping("/allAnnouncements")
     public String showAllAnnouncements(Model model) {
         try {
-            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            List<Announcement> announcements = announcementService.getAnnouncementsSortedByRating();
+//            List<Announcement> announcements = announcementService.getAllAnnouncements();
             model.addAttribute("announcements", announcements);
 //            throw new RuntimeException("Simulated exception");
         } catch (Exception e) {
