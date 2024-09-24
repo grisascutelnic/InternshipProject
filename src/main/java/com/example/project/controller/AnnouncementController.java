@@ -94,16 +94,17 @@ public class AnnouncementController {
         } else {
             model.addAttribute("profile", null); // or handle unauthenticated case differently
         }
-        List<Feedback> feedbacks = feedbackService.getAllFeedbacks();
-        model.addAttribute("feedbacks", feedbacks);
-        model.addAttribute("feedback", new Feedback());
 
         // Obține anunțul specificat de ID
         Announcement announcement = announcementService.getAnnouncementById(id);
         if (announcement != null) {
             model.addAttribute("announcement", announcement);
 
-            // Nu este nevoie să adaugi announcementId ca model attribute, deoarece ID-ul este deja parte din URL
+            // Obține doar feedback-urile asociate cu acest anunț
+            List<Feedback> feedbacks = feedbackService.getFeedbacksByAnnouncementId(id);
+            model.addAttribute("feedbacks", feedbacks);
+            model.addAttribute("feedback", new Feedback());
+
             return "viewAnnouncement";
         } else {
             return "redirect:/viewAnnouncement?error";
@@ -112,10 +113,12 @@ public class AnnouncementController {
 
 
 
+
     @GetMapping("/allAnnouncements")
     public String showAllAnnouncements(Model model) {
         try {
-            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            List<Announcement> announcements = announcementService.getAnnouncementsSortedByRating();
+//            List<Announcement> announcements = announcementService.getAllAnnouncements();
             model.addAttribute("announcements", announcements);
 //            throw new RuntimeException("Simulated exception");
         } catch (Exception e) {

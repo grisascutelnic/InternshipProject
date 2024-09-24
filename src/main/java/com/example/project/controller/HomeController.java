@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping("/index")
     public String showIndex(Model model) {
         try {
-            List<Announcement> announcements = announcementService.getAllAnnouncements();
+            List<Announcement> announcements = announcementService.getAnnouncementsSortedByRating();
             model.addAttribute("announcements", announcements);
 //            throw new RuntimeException("Simulated exception");
         } catch (Exception e) {

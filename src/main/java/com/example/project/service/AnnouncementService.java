@@ -9,6 +9,8 @@ import java.util.List;
 public interface AnnouncementService {
     List<Announcement> getAllAnnouncements();
 
+    List<Announcement>  getAnnouncementsSortedByRating();
+
     void saveAnnouncement(Announcement announcement, MultipartFile imageFile, Authentication auth);
 
     void deleteAnnouncement(Long id);
