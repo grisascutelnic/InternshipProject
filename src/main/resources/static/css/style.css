@@ -725,7 +725,7 @@ ul.pagination .active a {
 }
 
 .add-button {
-	background: #47acf4;
+	background: #5672f9;
 	color: #fff;
 	padding: 8px 20px !important;
 	display: inline-block;
@@ -1577,7 +1577,7 @@ ul.pagination .active a {
 }
 
 .product-details .content .nav .nav-item .nav-link {
-	padding: 20px 30px;
+	padding: 10px 20px;
 	border-radius: 0;
 	background: #fff;
 }
@@ -2675,4 +2675,39 @@ form textarea {
 	padding: 25px 30px 20px;
 	margin-bottom: 30px;
 	border-radius: 2px;
+}
+
+.add-event-container {
+	margin-bottom: 20px;
+}
+
+#toggle-form-btn {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#toggle-form-btn .arrow {
+	margin-left: 10px;
+}
+
+#toggle-form-btn.open .arrow {
+	transform: rotate(180deg);
+}
+
+#event-form {
+	margin-top: 10px;
+}
+
+.card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 10px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	text-align: center;
 }
