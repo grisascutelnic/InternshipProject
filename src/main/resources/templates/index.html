@@ -180,7 +180,7 @@
 							</ul>
 							<div>
 								<!-- Afișează media rating-urilor -->
-								<p class="text-left text-muted mb-1" id="average-rating" th:text="'Note du prestataire ' + ${T(java.lang.String).format('%.1f', announcement.profile.averageRating)}"></p>
+								<p class="text-center text-muted mb-1" id="average-rating" th:text="'Note du prestataire ' + ${T(java.lang.String).format('%.1f', announcement.profile.averageRating)}"></p>
 								<form id="rating-form" th:action="@{'/profile/rate/' + ${announcement.profile.id}}" method="post">
 									<input type="hidden" name="rating" id="rating-value">
 								</form>
