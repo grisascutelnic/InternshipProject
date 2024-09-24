@@ -10,6 +10,8 @@ public interface FeedbackService {
     Feedback getFeedbackById(Long id);
     void saveFeedback(Feedback feedback);
     //    void deleteFeedback(Long id);
+
+    List<Feedback> getFeedbacksByAnnouncementId(Long announcementId);
 }
 
 
