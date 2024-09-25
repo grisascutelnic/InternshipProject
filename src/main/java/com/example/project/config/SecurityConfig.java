@@ -39,10 +39,8 @@ public class SecurityConfig {
                                 .requestMatchers("/css/**", "/js/**", "/images/**", "/plugins/**").permitAll()
                                 .requestMatchers("/index", "/error").permitAll()
                                 .requestMatchers("/register/**").not().authenticated()
-                                .requestMatchers("profile/{id}/events/**").authenticated()
-                                .requestMatchers("/login/**", "/announcements/**", "/profile/**", "/viewAnnouncement/**",
-                                        "/feedbacks/**", "/allAnnouncements/**", "/loginSuccess/**", "/change-password/**",
-                                        "/delete-account/**").permitAll()
+                                .requestMatchers("/login/**", "/announcements/**", "/profile/**", "/viewAnnouncement/**", "/chat/**",
+                                        "/feedbacks/**", "/allAnnouncements/**", "/loginSuccess/**", "/change-password/**", "/delete-account/**").permitAll()
 //                                .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form

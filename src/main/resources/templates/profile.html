@@ -27,6 +27,7 @@
 
   <!-- favicon -->
   <link th:href="@{/images/favicon.png}" rel="shortcut icon">
+  <link th:href="@{/css/chatAI.css}" rel="stylesheet">
 
   <!-- 
   Essential stylesheets
@@ -280,6 +281,8 @@
 =            Footer            =
 =============================-->
 
+<div th:include="fragments/chat-fragment :: chatBox"></div>
+
 <!--/ Footer Start /-->
 <div th:replace="~{/fragments/footer :: footer}"></div>
 <!--/ Footer End /-->
@@ -366,6 +369,7 @@ Essential Scripts
 </script>
 
 
+<script th:src="@{/js/chatAI.js}"></script>
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/popper.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/bootstrap.min.js}"></script>

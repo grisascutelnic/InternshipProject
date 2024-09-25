@@ -1,0 +1,87 @@
+/* Styling for the chat icon */
+#chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px; /* Increased font size for better visibility */
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s; /* Added transition for hover effect */
+}
+
+#chat-icon:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.1); /* Slightly enlarges the icon on hover */
+}
+
+/* Styling for the chat box */
+#chat-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 400px; /* Increased width for a larger chat box */
+    height: 400px; /* Increased height for a larger chat box */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for a better effect */
+    display: none;
+    flex-direction: column;
+    transition: all 0.3s; /* Smooth transition for showing/hiding */
+}
+
+#chat-header {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 18px; /* Slightly larger font size */
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 24px; /* Increased size for better visibility */
+}
+
+#chat-body {
+    padding: 12px; /* Added padding for a more spacious feel */
+    flex: 1; /* Allows the chat body to grow and fill the available space */
+    overflow-y: auto;
+}
+
+#chat-footer {
+    display: flex;
+    padding: 12px; /* Increased padding for a more spacious feel */
+    border-top: 1px solid #ddd;
+}
+
+#chat-footer input {
+    flex: 1;
+    padding: 8px; /* Increased padding for input */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px; /* Slightly larger font size */
+}
+
+#chat-footer button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Increased padding for button */
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px; /* Slightly larger font size */
+    transition: background-color 0.3s; /* Added transition for hover effect */
+}
+
+#chat-footer button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

@@ -24,6 +24,7 @@
   <link th:href="@{/plugins/jquery-nice-select/css/nice-select.css}" rel="stylesheet">
 
   <link th:href="@{/css/style.css}" rel="stylesheet">
+  <link th:href="@{/css/chatAI.css}" rel="stylesheet">
 
 </head>
 <body class="body-wrapper">
@@ -111,7 +112,10 @@
   </div>
 </section>
 
+<div th:include="fragments/chat-fragment :: chatBox"></div>
+
 <div th:replace="~{/fragments/footer :: footer}"></div>
 
+<script th:src="@{/js/chatAI.js}"></script>
 </body>
 </html>

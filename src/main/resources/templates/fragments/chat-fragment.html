@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/css/chatAI.css}" rel="stylesheet">
+</head>
+
+<div th:fragment="chatBox">
+  <!-- Chat Icon and Chat Window -->
+  <div id="chat-container">
+    <div id="chat-icon" onclick="toggleChat()">
+      💬
+    </div>
+
+    <div id="chat-box">
+      <div id="chat-header">
+        AI Chat
+        <span onclick="toggleChat()" class="close-btn">&times;</span>
+      </div>
+      <div id="chat-body">
+        <div id="chat-messages"></div>
+      </div>
+      <div id="chat-footer">
+        <input type="text" id="userMessage" placeholder="Ask me something..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/js/chatAI.js}"></script>
+</body>
+
+</html>
