@@ -220,15 +220,16 @@
 						<p class="text-center text-muted mb-1" th:text="'Enregistré le ' + ${#dates.format(announcement.profile.registrationDate, 'yyyy-MM-dd HH:mm')}"></p>
 
 						<!-- Phone Number -->
-						<p class="text-center text-muted mb-1" th:if="${announcement.profile.email!= null && announcement.profile.phone != null}">
-							<i class="fa fa-phone"></i> <span th:text="${announcement.profile.phone}"></span>
+						<p class="text-center text-muted mb-1">
+							<span sec:authorize="isAuthenticated()" th:text="${announcement.profile.phone}"><i class="fa fa-phone"></i></span>
+							<span sec:authorize="!isAuthenticated()"></span>
 						</p>
 
 						<!-- Location -->
-						<p class="text-center text-muted mb-3" th:if="${announcement.profile.email != null && announcement.profile.location != null}">
-							<i class="fa fa-map-marker"></i> <span th:text="${announcement.profile.location}"></span>
+						<p class="text-center text-muted mb-3">
+							<span sec:authorize="isAuthenticated()" th:text="${announcement.profile.location}"><i class="fa fa-map-marker"></i></span>
+							<span sec:authorize="!isAuthenticated()"></span>
 						</p>
-
 
 						<div>
 							<!-- Afișează media rating-urilor -->

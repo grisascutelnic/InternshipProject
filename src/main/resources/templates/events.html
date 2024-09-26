@@ -69,11 +69,11 @@
                                 <input type="text" class="form-control" id="description" name="description">
                             </div>
                             <div class="form-group">
-                                <label for="startTime">L'heure de début</label>
+                                <label for="startTime">La date et l'heure de début</label>
                                 <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
                             </div>
                             <div class="form-group">
-                                <label for="endTime">L'heure de fin</label>
+                                <label for="endTime">La date et l’heure de fin</label>
                                 <input type="datetime-local" class="form-control" id="endTime" name="endTime" required>
                             </div>
                             <button type="submit" class="btn btn-main justify-content-center">Envoyer</button>
@@ -93,7 +93,8 @@
                                         <p class="card-text">
                                             <span th:text="${#dates.format(event.startTime, 'dd MMMM HH:mm')} + ' - ' + ${#dates.format(event.endTime, 'dd MMMM HH:mm yyyy')}"></span>
                                         </p>
-                                        <span th:text="${event.status}"></span>
+                                        <span class="text-success" th:text="${event.description}"></span>
+                                        <div th:text="${event.status}"></div>
                                     </div>
                                     <!-- Afișează doar pentru utilizatorul căruia i-a fost asignat evenimentul -->
                                     <div th:if="${authenticatedEmail == event.profile.email}">

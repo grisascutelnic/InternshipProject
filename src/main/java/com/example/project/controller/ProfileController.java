@@ -133,7 +133,7 @@ public class ProfileController {
         event.setProfile(profile);
         event.setStatus("Pending");
         eventService.addEvent(event);
-        return "redirect:/profile/" + id + "events";
+        return "redirect:/profile/" + id + "/events";
     }
 
     @PostMapping("/{id}/events/{eventId}/updateStatus")
